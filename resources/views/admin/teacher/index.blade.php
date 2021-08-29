@@ -18,6 +18,7 @@
         <th>Name</th>
         <th>gender</th>
         <th>status</th>
+        <th>Image</th>
         <th>Created At</th>
         <th class="text-right">Action</th>
     </tr>
@@ -26,7 +27,7 @@
         @foreach ($teacher as $each)
         <tr>
             <td>{{$each->id}}</td>
-            <td>{{$each->NameTeacher}}</td>
+            <td>{{$each->first_name}} {{$each->last_name}}</td>
             <td>{{$each->genderName}}</td>
             <td>
                 @if ($each->status==0)
@@ -35,9 +36,10 @@
                     <span class="badge badge-success">Private</span>
                 @endif
             </td>
+            <td><img src="{{ url('public/upload') }}/{{$each->image}}" alt="" style="height: 150px;"></td>
             <td>{{$each->created_at}}</td>
             <td class="text-right">
-                <a href="{{ route('teacher.show',$each->id) }}" class="btn btn-success">
+                <a href="{{ route('teacher.show',$each->id) }}" class="btn btn-primary">
                     <i class="fa fa-eye"></i>
                 </a>
                 <a href="{{ route('teacher.edit',$each->id) }}" class="btn btn-success">

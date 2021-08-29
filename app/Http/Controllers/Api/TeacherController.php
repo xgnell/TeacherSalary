@@ -58,7 +58,8 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        
+        return view('admin.teacher.show',compact('teacher'));
     }
 
     /**
@@ -69,7 +70,9 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
+        $major = Major::all();
+        $salary = Salary::all();
+        return view('admin.teacher.edit',compact('teacher','major','salary'));
     }
 
     /**
@@ -81,7 +84,8 @@ class TeacherController extends Controller
      */
     public function update(updateRequest $request, Teacher $teacher)
     {
-        //
+        $teacher->update($request->all());
+        return redirect()->route('teacher.index')->with('success','Thêm mới thành công!');
     }
 
     /**

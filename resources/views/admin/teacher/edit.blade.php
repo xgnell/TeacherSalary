@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('main')
-<h2>ADD TEEACHER</h2>
-<form method="POST" action="{{ route('teacher.store') }}">
+<h2>EDIT TEEACHER</h2>
+<form method="POST" action="{{ route('teacher.update',$teacher->id) }}">
     @csrf
     <div class="row">
       <div class="col-md-8">
@@ -11,7 +11,7 @@
               <div class="form-group">
             <label for="">First Name:</label>
             <input type="text"
-              class="form-control" name="first_name" id="first_name" aria-describedby="helpId" placeholder="first name">
+              class="form-control" value="{{ $teacher->first_name }}" name="first_name" id="first_name" aria-describedby="helpId" placeholder="first name">
               </div>
               @error('first_name')
               <small class="help-block" style="color:red">{{$message}}</small>
@@ -21,7 +21,7 @@
       <div class="col-md-12">
           <label for="">Last Name: </label>
           <input type="text"
-            class="form-control" name="last_name" id="last_name" aria-describedby="helpId" placeholder="last name">
+            class="form-control" value="{{ $teacher->last_name }}" name="last_name" id="last_name" aria-describedby="helpId" placeholder="last name">
           @error('last_name')
           <small class="help-block" style="color:red">{{$message}}</small>
           @enderror
@@ -29,7 +29,7 @@
           <div class="col-md-12">
             <label for="">Address: </label>
             <input type="text"
-              class="form-control" name="address" id="address" aria-describedby="helpId" placeholder="address">
+              class="form-control" value="{{ $teacher->address }}" name="address" id="address" aria-describedby="helpId" placeholder="address">
             @error('address')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
@@ -37,7 +37,7 @@
           <div class="col-md-12">
             <label for="">Phone: </label>
             <input type="text"
-              class="form-control" name="phone" id="phone" aria-describedby="helpId" placeholder="phone">
+              class="form-control" value="{{ $teacher->phone }}" name="phone" id="phone" aria-describedby="helpId" placeholder="phone">
             @error('last_name')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
@@ -45,7 +45,7 @@
           <div class="col-md-12">
             <label for="">Birthdate: </label>
             <input type="Date"
-              class="form-control" name="birthday" id="birthday" aria-describedby="helpId" placeholder="birthday">
+              class="form-control" value="{{ $teacher->birthday }}" name="birthday" id="birthday" aria-describedby="helpId" placeholder="birthday">
             @error('birthday')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
@@ -54,9 +54,15 @@
             <label for="">Gender:</label>
             <div>
                 <label for="">Male: </label>
-                <input type="radio" name="gender" id="gender" aria-describedby="helpId" value="1" checked="checked">
+                <input type="radio" name="gender" id="gender" aria-describedby="helpId" value="1"
+                    @if ($teacher->gender == 1)
+                        checked= "checked"
+                    @endif
+                >
                 <label for="">Female: </label>
-            <input type="radio" name="gender" id="gender" aria-describedby="helpId" value="0">
+            <input type="radio" name="gender" id="gender" aria-describedby="helpId" value="0" @if ($teacher->gender == 0)
+            checked= "checked"
+        @endif>
             </div>
             @error('gender')
             <small class="help-block" style="color:red">{{$message}}</small>
@@ -73,8 +79,12 @@
           <label for="">Teaching Formality: </label>
           <br>
           <select name="teaching_formality" id="">
-            <option value="1">Fulltime</option>
-            <option value="0">PartTime</option>
+            <option value="1" @if ($teacher->teaching_formality==1)
+                    selected = "selected"                
+            @endif>Fulltime</option>
+            <option value="0" @if ($teacher->teaching_formality==0)
+                selected = "selected"                
+        @endif>PartTime</option>
           </select>
           @error('teaching_formality')
           <small class="help-block" style="color:red">{{$message}}</small>
@@ -85,7 +95,9 @@
           <br>
           <select name="major_id" id="">
             @foreach ($major as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                <option value="{{ $item->id }}" @if ($teacher->major_id==$item->id)
+                    selected = "selected"                
+            @endif>{{ $item->name }}</option>
             @endforeach
           </select>
           @error('major_id')
@@ -97,7 +109,9 @@
           <br>
           <select name="salary_id" id="">
             @foreach ($salary as $item)
-                <option value="{{ $item->id }}">{{ $item->salary_level->name }} </option>
+                <option value="{{ $item->id }}" @if ($teacher->salary_id==$item->id)
+                    selected = "selected"                
+            @endif>{{ $item->salary_level->name }} </option>
             @endforeach
           </select>
           @error('salary_id')
@@ -108,9 +122,13 @@
           <label for="">Status:</label>
           <div>
               <label for="">lock: </label>
-              <input type="radio" name="status" id="status" aria-describedby="helpId" value="1" checked="checked">
+              <input type="radio" name="status" id="status" aria-describedby="helpId" value="1" @if ($teacher->status==1)
+                    checked = "checked"                  
+              @endif>
               <label for="">unlock: </label>
-          <input type="radio" name="status" id="status" aria-describedby="helpId" value="0">
+          <input type="radio" name="status" id="status" aria-describedby="helpId" value="0" @if ($teacher->status==0)
+          checked = "checked"                  
+             @endif>
           </div>
           @error('status')
           <small class="help-block" style="color:red">{{$message}}</small>
@@ -128,7 +146,7 @@
                 </span>
             </div>
             <div class="img1" style="padding: 10px 25px; ">
-                <img src="" alt="" id="showImg" class="img-responsive" style="width:100%; margin: auto; border: 1px solid black;height : 200px">
+                <img src="{{ url('public\upload') }}\{{ $teacher->image }}" alt="" id="showImg" class="img-responsive" style="width:100%; margin: auto; border: 1px solid black;height : 200px">
             </div>
               @error('image')
                   <small class="help-block">{{$message}}</small>

@@ -11,9 +11,19 @@ class Teacher extends Model
     protected $table = 'teacher';
     protected $fillable = ['first_name','last_name','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'];
 
-    public function getNameTeacherAttribute(){
-        return $this->first_name + ' ' + $this->last_name;
+    public function major(){
+        return $this->hasOne(Major::class,'id','major_id');
     }
+    public function salary(){
+        return $this->hasOne(Salary::class,'id','salary_id');
+    }
+    public function bhxh(){
+        return $this->hasOne(BHXH::class,'teacher_id','id');
+    }
+    public function kpi(){
+        return $this->hasOne(KPI::class,'teacher_id','id');
+    }
+
     public function getGenderNameAttribute(){
         if($this->gender==1){
             return "male";

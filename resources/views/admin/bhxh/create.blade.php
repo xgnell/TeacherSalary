@@ -10,7 +10,7 @@
               <label for="">Chose Teacher:</label>
               <select name="teacher_id" >
                   @foreach ($teacher as $each)
-                      <option value="{{ $each->id }}">{{ $each->name }}</option>
+                      <option value="{{ $each->id }}">{{ $each->first_name }} {{ $each->last_name }}</option>
                   @endforeach
               </select>
                 </div>
