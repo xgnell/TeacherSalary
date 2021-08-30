@@ -79,7 +79,7 @@ class SalaryController extends Controller
      */
     public function update(updateRequest $request, Salary $salary)
     {
-        $salary->update($request->only('salary_basic','salary_per_hour','salary_ot_per_hour'));
+        $salary->update($request->only('salary_level_id','salary_basic','salary_per_hour','salary_ot_per_hour'));
         return redirect()->route('salary.index')->with('success','Cập nhật thành công!');
     }
 

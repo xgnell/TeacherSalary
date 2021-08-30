@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Criteria;
 
+use App\Models\Criteria;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,9 +28,9 @@ class updateRequest extends FormRequest
         return [
             'name'=>[
                 'required',
-                Rule::unique('criteria','name')->ignore($this->major),
+                Rule::unique('criteria','name')->ignore($this->criteria),
             ],
-            'criteria'=>'required',
+            'criteria_mark'=>'required',
         ];
     }
 }

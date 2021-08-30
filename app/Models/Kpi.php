@@ -9,7 +9,7 @@ class Kpi extends Model
 {
     use HasFactory;
     protected $table = 'kpi';
-    protected $fillable =['teacher_id','criteria_id'];
+    protected $fillable =['month','teacher_id','criteria_id'];
     public function teacher(){
         return $this->hasMany(Teacher::class,'id','teacher_id');
     }

@@ -85,7 +85,7 @@ class TeacherController extends Controller
     public function update(updateRequest $request, Teacher $teacher)
     {
         $teacher->update($request->all());
-        return redirect()->route('teacher.index')->with('success','Thêm mới thành công!');
+        return redirect()->route('teacher.index')->with('success','Cập nhật thành công!');
     }
 
     /**

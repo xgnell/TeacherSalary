@@ -76,7 +76,7 @@ class SalaryLevelController extends Controller
      */
     public function update(updateRequest $request, SalaryLevel $salaryLevel)
     {
-        $salaryLevel->update($request->only('name','criteria'));
+        $salaryLevel->update($request->validated('name','criteria'));
         return redirect()->route('salary_level.index')->with('success','Cập nhật thành công!');
     }
 

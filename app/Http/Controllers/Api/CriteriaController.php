@@ -7,6 +7,7 @@ use App\Models\Criteria;
 use Illuminate\Http\Request;
 use App\Http\Requests\Criteria\createRequest;
 use App\Http\Requests\Criteria\updateRequest;
+use Illuminate\Validation\Rule;
 
 class CriteriaController extends Controller
 {
@@ -18,7 +19,7 @@ class CriteriaController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $criteria = Criteria::orderBy('id','asc')->search()->paginate(5);
+        $criteria = Criteria::orderBy('id','ASC')->search()->paginate(5);
         return view('admin.criteria.index',compact('search','criteria'));
     }
 
@@ -63,8 +64,9 @@ class CriteriaController extends Controller
      * @param  \App\Models\Criteria  $criteria
      * @return \Illuminate\Http\Response
      */
-    public function edit(updateRequest $criteria)
+    public function edit($id)
     {
+        $criteria = Criteria::find($id);
         return view('admin.criteria.edit',compact('criteria'));
     }
 
@@ -75,8 +77,16 @@ class CriteriaController extends Controller
      * @param  \App\Models\Criteria  $criteria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Criteria $criteria)
+    public function update(Request $request, $id)
     {
+        $criteria = Criteria::find($id);
+        $this->validate($request,[
+            'name'=>[
+                'required',
+                Rule::unique('criteria','name')->ignore($id),
+            ],
+            'criteria_mark'=>'required',
+        ]);
         $criteria->update($request->only('name','criteria_mark'));
         return redirect()->route('criteria.index')->with('success','Cập nhật thành công!');
     }
@@ -87,8 +97,10 @@ class CriteriaController extends Controller
      * @param  \App\Models\Criteria  $criteria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Criteria $criteria)
+    public function destroy($id)
     {
+        $criteria = Criteria::find($id);
         $criteria->delete();
+        return redirect()->route('criteria.index')->with('success','Xóa Thành công');
     }
 }

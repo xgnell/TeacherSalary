@@ -163,12 +163,13 @@
 </div>
 @endsection
 <script>
-  $(function () {
-    // Summernote
-  $('#modelId').on('hide.bs.modal',event =>{
-      var _link = $('input#image').val();
-      var _img = "{{ url('public/upload') }}" + "/" + _link;
-      $('img#showImg').attr('src',_img);
-  });
+  
+    $('#modelId').on('hide.bs.modal',event =>{
+        var _link = $('input#image').val();
+        var _img = "{{ url('public/upload') }}" + "/" + _link;
+        $('img#showImg').attr('src',_img);
+    });
+
+   
 
 </script>

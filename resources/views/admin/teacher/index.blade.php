@@ -30,10 +30,10 @@
             <td>{{$each->first_name}} {{$each->last_name}}</td>
             <td>{{$each->genderName}}</td>
             <td>
-                @if ($each->status==0)
-                    <span class="badge badge-danger">Private</span>
+                @if ($each->status==1)
+                    <span class="badge badge-danger">lock</span>
                 @else
-                    <span class="badge badge-success">Private</span>
+                    <span class="badge badge-success">unlock</span>
                 @endif
             </td>
             <td><img src="{{ url('public/upload') }}/{{$each->image}}" alt="" style="height: 150px;"></td>

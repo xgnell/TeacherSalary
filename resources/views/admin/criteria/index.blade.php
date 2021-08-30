@@ -32,7 +32,7 @@
                 <a href="{{ route('criteria.edit',$each->id) }}" class="btn btn-success">
                     <i class="fa fa-edit"></i>
                 </a>
-                <a href="{{ route('criteria.destroy', $each->id) }}" class="btn btn-danger btndelete">
+                <a href="{{ route('criteria.destroy',$each->id) }}" class="btn btn-danger btndelete">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

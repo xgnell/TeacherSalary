@@ -28,7 +28,7 @@ class updateRequest extends FormRequest
         return [
             'name'=>[
                 'required',
-                Rule::unique('salary_level','name')->ignore($this->major),
+                Rule::unique('salary_level','name')->ignore($this->salary_level),
             ],
             'criteria'=> 'required'
         ];

@@ -3,6 +3,7 @@
 @section('main')
 <h2>EDIT TEEACHER</h2>
 <form method="POST" action="{{ route('teacher.update',$teacher->id) }}">
+    @method('PUT')
     @csrf
     <div class="row">
       <div class="col-md-8">
@@ -69,10 +70,7 @@
             @enderror
           </div>
       </div>
-      {{-- end ben trai --}}
-      
-      <button class="btn btn-primary">Submit</button>
-    </div>
+    </div>{{-- end ben trai --}}
     <div class="col-md-4">
       <div class="row">
         <div class="col-md-12">
@@ -137,7 +135,7 @@
         <div class="col-md-12">
           <label for="">image: </label>
             <input type="hidden"
-              class="form-control" name="image" id="image" aria-describedby="helpId" placeholder="image ...">
+              class="form-control" value="{{ $teacher->image }}" name="image" id="image" aria-describedby="helpId" placeholder="image ...">
               <div class="input-group-append">
                 <span class="input-group-text">
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modelId">
@@ -156,7 +154,7 @@
     </div>
     </div>
     
-    
+    <button class="btn btn-primary">Submit</button>
 
 </form>
 
@@ -181,12 +179,13 @@
 </div>
 @endsection
 <script>
-  $(function () {
-    // Summernote
+$(document).ready(function() {
   $('#modelId').on('hide.bs.modal',event =>{
       var _link = $('input#image').val();
       var _img = "{{ url('public/upload') }}" + "/" + _link;
       $('img#showImg').attr('src',_img);
   });
+});
+
 
 </script>
