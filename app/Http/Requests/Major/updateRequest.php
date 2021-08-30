@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Major;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateRequest extends FormRequest
 {
@@ -24,7 +25,13 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|max:50|unique:major,name,'.request()->id,
+            // 'name'=>'required|max:50|unique:major,name,'.request()->major,
+            
+            'name'=>[
+                'required',
+                'max:50',
+                Rule::unique('major','name')->ignore($this->major),
+            ],
             'slug'=>'required',
         ];
     }

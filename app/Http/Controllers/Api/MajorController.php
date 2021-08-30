@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Major\createRequest;
+use App\Http\Requests\Major\updateRequest;
 use App\Models\Major;
 use Illuminate\Http\Request;
 
@@ -75,9 +76,9 @@ class MajorController extends Controller
      * @param  \App\Models\Major  $major
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Major $major)
+    public function update(updateRequest $request, Major $major)
     {
-        $major->update($request->only('name','slug'));
+        $major->update($request->validated());
         return redirect()->route('major.index')->with('success','Cập nhật thành công');
     }
 

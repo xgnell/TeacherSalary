@@ -3,6 +3,8 @@
 namespace App\Http\Requests\SalaryLevel;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class updateRequest extends FormRequest
 {
@@ -24,8 +26,11 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=> "required|unique:salary_level,name,".request()->id,
-            "criteria"=> "required",
+            'name'=>[
+                'required',
+                Rule::unique('salary_level','name')->ignore($this->major),
+            ],
+            'criteria'=> 'required'
         ];
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
-    <h2>ADD MAJOR</h2>
+    <h2>EDIT SALARY LEVEL</h2>
     <form method="POST" action="{{ route('salary_level.update',$salaryLevel->id) }}">
         @csrf
         @method('PUT')
