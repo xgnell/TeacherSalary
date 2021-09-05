@@ -1,0 +1,27 @@
+*{margin: 0 ; padding: 0}
+
+input#total_salary {
+    width: 100%;
+    margin-right: 38px;
+
+}
+
+div#modelId {
+    width: 50%;
+    margin: auto;
+    margin-left: 30%;
+}
+
+
+input[type="text"] {
+    width: 40%;
+}
+
+button.btn.btn-primary.btn-lg {
+    width: 32%;
+    height: 30px;
+    font-size: 15px;
+    padding: 10px 12px;
+    text-align: center;
+    margin-top: -7px;
+}

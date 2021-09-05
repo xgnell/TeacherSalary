@@ -19,8 +19,8 @@ class Lichsuluongthang extends Migration
             $table->Double('total_salary');
             $table->Double('total_teaching_hours');
             $table->Double('total_ot_hours');
-            $table->Double('total_kpi');
-            $table->unsignedInteger('bhxh');
+            $table->Double('total_kpi')->default(0);
+            $table->unsignedInteger('bhxh')->default(0);
             $table->primary(array('teacher_id','month'));
            $table->foreign('teacher_id')->references('id')->on('teacher');
 

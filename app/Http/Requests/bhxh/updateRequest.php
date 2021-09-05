@@ -25,7 +25,6 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => 'required',
             'total_value' => 'required|integer',
             'month' => 'required',
             'year' => 'required'

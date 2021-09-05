@@ -27,16 +27,16 @@
         @foreach ($bhxh as $each)
         <tr>
             <td>{{$each->teacher_id}}</td>
-            <td>{{$each->teacher->name}}</td>
+            <td>{{$each->teacher->first_name}} {{$each->teacher->last_name}}</td>
             <td>{{$each->total_value}}</td>
             <td>{{$each->month}}</td>
             <td>{{$each->year}}</td>
             <td>{{$each->created_at}}</td>
             <td class="text-right">
-                <a href="{{ route('bhxh.edit',$each->id) }}" class="btn btn-success">
+                <a href="{{ route('bhxh.edit',$each->teacher_id) }}" class="btn btn-success">
                     <i class="fa fa-edit"></i>
                 </a>
-                <a href="{{ route('bhxh.destroy', $each->id) }}" class="btn btn-danger btndelete">
+                <a href="{{ route('bhxh.destroy', $each->teacher_id) }}" class="btn btn-danger btndelete">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

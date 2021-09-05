@@ -6,6 +6,11 @@
             'icon' => 'fa-home'
         ],
         [
+            'label' => 'PayRoll',
+            'route' => 'history_salary.create',
+            'icon' => 'fa-tachometer-alt'
+        ],
+        [
             'label' => 'Teachers',
             'route' => 'teacher.index',
             'icon' => 'fa-tachometer-alt',
@@ -67,7 +72,7 @@
                     'icon' => 'fa-circle',
                 ],
                 [
-                    'label' => 'Payroll',
+                    'label' => 'Add salary',
                     'route' => 'salary.create',
                     'icon' => 'fa-circle',
                 ],
@@ -95,29 +100,11 @@
                 ]
             ]
         ],
-        [
-            'label' => 'Account',
-            'route' => 'user.index',
-            'icon' => 'fa-tachometer-alt',
-            'items' =>[
-                [
-                    'label' => 'List Account',
-                    'route' => 'user.index',
-                    'icon' => 'fa-circle',
-                ],
-                [
-                    'label' => 'Add Account',
-                    'route' => 'user.index',
-                    'icon' => 'fa-circle',
-
-                ]
-            ]
-        ]
-        ,[
+       [
             'label' => 'File Manager',
             'route' => 'admin.file',
             'icon' => 'fa-tachometer-alt',
         ],
-
+        
     ]
 ?>

@@ -24,7 +24,7 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => 'required',
+            'teacher_id' => 'required|unique:bhxh',
             'total_value' => 'required|integer',
             'month' => 'required',
             'year' => 'required'

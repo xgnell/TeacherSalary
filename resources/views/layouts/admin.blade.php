@@ -8,8 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Fixed Sidebar</title>
+    <title>Manage salary</title>
     @yield('css')
+   
+<script src=//code.jquery.com/jquery-3.5.1.min.js integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+crossorigin=anonymous></script>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -62,7 +65,7 @@
       </li>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi</a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->name }}</a>
           <ul class="dropdown-menu">
             {{-- <li><a href="">Thông Tin</a></li> --}}
             <li><a href="" Onclick="return confirm('Are you sure you want to logout')">Thoát tài khoản</a></li>
@@ -106,7 +109,7 @@
           <img src="{{ asset('public/ad/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -134,17 +137,46 @@
                 </a>
               </li>
                   @endforeach
+                  
             </ul>
           </li>
           {{-- end category --}}
-            @endif
-            
-          
+            @endif         
               @endforeach
-                
-          
+              {{-- account --}}
+              @if (Auth::user()->role ==1)
+              <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Account
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                    <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                    <a href="{{ route('user.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>List Account</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('user.create') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Add Account</p>
+                    </a>
+                  </li>
+                      
+                </ul>
+              </li>
+              @endif
+            
+      {{-- end category --}}
+        
+            </li>
             </ul>
       </nav>
+     
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

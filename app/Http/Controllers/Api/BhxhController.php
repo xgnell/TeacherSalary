@@ -65,9 +65,11 @@ class BhxhController extends Controller
      * @param  \App\Models\BHXH  $bHXH
      * @return \Illuminate\Http\Response
      */
-    public function edit(BHXH $bHXH)
+    public function edit($id)
     {
-        return view('admin.bhxh.edit',compact('bHXH'));
+        $bHXH = BHXH::find($id);
+        $teacher = Teacher::all();
+        return view('admin.bhxh.edit',compact('bHXH','teacher'));
     }
 
     /**
@@ -77,9 +79,11 @@ class BhxhController extends Controller
      * @param  \App\Models\BHXH  $bHXH
      * @return \Illuminate\Http\Response
      */
-    public function update(updateRequest $request, BHXH $bHXH)
+    public function update(updateRequest $request,$id)
     {
+        $bHXH = BHXH::find($id);
         $bHXH->update($request->only('teacher_id','total_value','month','year'));
+        return redirect()->route('bhxh.index')->with('success','Cập nhật thành công!');
     }
 
     /**
@@ -88,10 +92,11 @@ class BhxhController extends Controller
      * @param  \App\Models\BHXH  $bHXH
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BHXH $bHXH)
+    public function destroy($id)
     {
+        $bHXH = BHXH::find($id);
         if($bHXH->teacher->count() > 0){
-            return redirect()->back()->with('error','Đang tồn tại giảng viên sử dụng');
+            return redirect()->back()->with('error','Đang tồn tại giảng viên sử dụng BHXH');
         }else{
             $bHXH->delete();
             return redirect()->back()->with('success','Xóa thành công!');

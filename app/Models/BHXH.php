@@ -10,9 +10,9 @@ class BHXH extends Model
     use HasFactory;
     protected $table='bhxh';
     protected $fillable =['teacher_id','total_value','month','year'];
-    public $primaryKey = 'teacher_id';
+    protected $primaryKey = 'teacher_id';
     public function teacher(){
-        return $this->hasMany(Teacher::class,'id','teacher_id');
+        return $this->hasOne(Teacher::class,'id','teacher_id');
     }
     public function scopeSearch($query){
         if($search = request()->search){

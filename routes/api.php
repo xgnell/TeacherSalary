@@ -14,23 +14,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
-Route::group(['prefix' => 'admin','middleware' => ['web']],function(){
+Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/','Api\AdminController@dashboard')->name('admin.dashboard');
     Route::get('/file','Api\AdminController@file')->name('admin.file');
     Route::resources([
         'teacher'=>'Api\TeacherController',
         'criteria'=>'Api\CriteriaController',
         'major'=>'Api\MajorController',
-        'account'=> 'AccountController',
+        'account'=> 'Api\AccountController',
         'user'=>'Api\UserController',
         'bhxh'=>'Api\BhxhController',
         'salary'=>'Api\SalaryController',
         'salary_level'=>'Api\SalaryLevelController',
     ]);
-    
+    Route::get('/history_salary','Api\HistorySalaryController@create')->name('history_salary.create');
+    Route::get('/history_salary/store','Api\HistorySalaryController@store')->name('history_salary.store');
+    Route::get('/history_filter/{slug}','Api\HistorySalaryController@filter')->name('history_salary.filter');
+    Route::get('/history_add/{id}','Api\HistorySalaryController@add')->name('history_salary.add');
+        // kpi
+        Route::get('/kpi/{id}','Api\KpiController@view')->name('kpi');
+        Route::get('/kpi/edit/{id}','Api\KpiController@edit')->name('kpi.edit');
+        Route::post('/kpi/add','Api\KpiController@add')->name('kpi.add');
+        Route::post('/kpi/update/{id}','Api\KpiController@update')->name('kpi.update');
 });
+
+
+Route::get('admin/login','Api\AdminController@login')->name('login');
+Route::post('admin/login','Api\AdminController@post_login')->name('login');
+Route::get('admin/logout','AdminController@logout')->name('logout');
+
+
+

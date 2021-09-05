@@ -21,7 +21,7 @@ class Teacher extends Model
         return $this->hasOne(BHXH::class,'teacher_id','id');
     }
     public function kpi(){
-        return $this->hasOne(KPI::class,'teacher_id','id');
+        return $this->hasOne(Kpi::class,'teacher_id','id');
     }
 
     public function getGenderNameAttribute(){
@@ -33,7 +33,7 @@ class Teacher extends Model
     }
     public function scopeSearch($query){
         if($search = request()->search){
-            $query = $query->where('name','like',"%$search%");
+            $query = $query->where('last_name','like',"%$search%");
             return $query;
         }
     }
