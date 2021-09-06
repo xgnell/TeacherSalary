@@ -9,7 +9,7 @@ class Teacher extends Model
 {
     use HasFactory;
     protected $table = 'teacher';
-    protected $fillable = ['first_name','last_name','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'];
+    protected $fillable = ['first_name','last_name','email','password','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'];
 
     public function major(){
         return $this->hasOne(Major::class,'id','major_id');

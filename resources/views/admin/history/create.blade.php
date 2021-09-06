@@ -61,6 +61,8 @@
                     </td>
                     <td class="text-right">
                         {{-- data-toggle="modal" data-target="#modelId" --}}
+                        {{-- javascript:void(0) --}}
+                        {{-- {{ route('history_salary.add',  $each->id) }} --}}
                         <a href="javascript:void(0)" id="add_payroll" data-id="{{ $each->id }}" data-toggle="modal"
                             data-target="#modelId" class="btn btn-info">Pay</a>
                     </td>
@@ -78,6 +80,92 @@
 <!-- Button trigger modal -->
 @section('js')
     <script src="{{ url('public/js/history.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('body').on('click', '#add_payroll', function(e) {
+                var id = $(this).data('id');
+                $.ajax({
+                    type: "GET",
+                    url: "history_add/" + id,
+                    dataType: 'json',
+                    success: function(response) {
+                        var teacher = response.teacher;
+                        var teacher_id = teacher.id;
+                        var result = response.salary;
+                        var salary_basic = result.salary_basic;
+                        var salary_per_hour = result.salary_per_hour;
+                        var salary_ot_per_hour = result.salary_ot_per_hour;
+                        var first_name = result.first_name;
+                        var last_name = result.last_name;
+                        var teaching_formality = result.teaching_formality;
+                        if (teaching_formality == 0) {
+                            $('#teaching_formality').html("Part Time");
+                        } else {
+                            $('#teaching_formality').html("Fulltime");
+                        }
+                        $('#salary_basic').html(salary_basic);
+                        $('#salary_basic_1').val(salary_basic);
+                        $('#salary_per_hour').html(salary_per_hour);
+                        $('#salary_per_hour_1').val(salary_per_hour);
+                        $('#salary_ot_per_hour').html(salary_ot_per_hour);
+                        $('#salary_ot_per_hour_1').val(salary_ot_per_hour);
+                        $('#teacher_id').val(teacher_id);
+                        $('#teacher_name').html(first_name + ' ' + last_name);
+                        //    kpi
+                        // var kpi = response.kpi;
+
+                        if(response.kpi==null){
+                            $('#total_kpi').val(0);
+                        }else{
+                            var kpi = response.kpi;
+                            var total_kpi = kpi.total_value;
+                            $('#total_kpi').val(total_kpi);
+                            
+                        }
+                            
+                        // bhxh
+                        
+                        if(response.bhxh==null)
+                        {
+                            $('#total_bhxh').val(0);
+                        }else{
+                            var bhxh = response.bhxh;
+                            var total_bhxh = bhxh.total_value;
+                            $('#total_bhxh').val(total_bhxh);
+                        }
+                            
+                    }
+                });
+
+            });
+            //tinh tong luong
+            $('body').on('click','#calculate',function(event) {
+                // khai bao cac gia tri
+                var salary_basic = parseFloat($('#salary_basic_1').val());
+                var salary_per_hour = parseFloat($('#salary_per_hour_1').val());
+                var salary_ot_per_hour = parseFloat($('#salary_ot_per_hour_1').val());
+                var total_kpi = parseFloat($('#total_kpi').val());
+                var total_bhxh = parseFloat($('#total_bhxh').val());
+                var total_teaching_hours = parseFloat($('#total_teaching_hours').val());
+                var total_ot_hours = parseFloat($('#total_ot_hours').val());
+                // tong luong
+                var total_salary = (salary_basic*(total_kpi/100))+(total_teaching_hours*salary_per_hour)+(total_ot_hours*salary_ot_per_hour)-total_bhxh;
+                $('input#total_salary').val(Math.round(total_salary));
+                return total_salary;
+            });
+            // tinh thang
+            var chuoi_thang = '';
+    for(var i = 1; i <= 12;i++){
+        chuoi_thang += "<option>" + i + "</option>";
+    }
+    document.getElementById('select_month').innerHTML = chuoi_thang;
+        });
+    </script>
 @endsection
 <!-- Button trigger modal -->
 
@@ -92,7 +180,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form action="{{ route('history_salary.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -128,7 +216,7 @@
                                     id="salary_ot_per_hour_1" aria-describedby="helpId">
                             </div>
                             <div class="col-md-12">
-                                <label for=""> Time: </label>
+                                <label for=""> Month: </label>
                                 <select id="select_month" name="month" value="tháng">
                                 </select>  
                         </div>
@@ -136,7 +224,7 @@
                         <div class="col-md-6">
                             <div class="col-md-12">
                                 <label for="">Total kpi: </label>
-                                <input type="text" class="form-control" value="0" name="total_kpi" id="total_kpi"
+                                <input type="text" class="form-control" name="total_kpi" id="total_kpi"
                                     aria-describedby="helpId" readonly>
                             </div>
                             <div class="col-md-12">
@@ -149,18 +237,23 @@
                                 <input type="text" class="form-control" value="0" name="total_teaching_hours"
                                     id="total_teaching_hours" aria-describedby="helpId">
                             </div>
+                            @error('total_teaching_hours')
+                         <small class="help-block" style="color:red">{{$message}}</small>
+                             @enderror
                             <div class="col-md-12">
                                 <label for="">Total overtime hours: </label>
                                 <input type="text" class="form-control" value="0" name="total_ot_hours"
                                     id="total_ot_hours" aria-describedby="helpId">
                             </div>
-                            <a href=""></a>
+                            @error('total_ot_hours')
+                         <small class="help-block" style="color:red">{{$message}}</small>
+                             @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">Total salary: </label>
-                            <input type="text" class="form-control" name="total_salary" id="total_salary"
+                            <input type="text" value="0" class="form-control" name="total_salary" id="total_salary"
                                 aria-describedby="helpId">
                         </div>
                     </div>
@@ -168,10 +261,7 @@
                         <button>payment</button>
                     </div>
                 </form>
-                <button id="calculate">calculate</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="calculate">calculate total value</button>
             </div>
         </div>
     </div>

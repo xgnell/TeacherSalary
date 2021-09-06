@@ -27,6 +27,22 @@
           @enderror
           </div>
           <div class="col-md-12">
+            <label for="">email: </label>
+            <input type="text"
+              class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="email">
+            @error('email')
+            <small class="help-block" style="color:red">{{$message}}</small>
+            @enderror
+            </div>
+            <div class="col-md-12">
+              <label for="">password: </label>
+              <input type="text"
+                class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="password">
+              @error('password')
+              <small class="help-block" style="color:red">{{$message}}</small>
+              @enderror
+              </div>
+          <div class="col-md-12">
             <label for="">Address: </label>
             <input type="text"
               class="form-control" name="address" id="address" aria-describedby="helpId" placeholder="address">

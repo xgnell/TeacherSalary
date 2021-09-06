@@ -33,9 +33,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
         'salary_level'=>'Api\SalaryLevelController',
     ]);
     Route::get('/history_salary','Api\HistorySalaryController@create')->name('history_salary.create');
-    Route::get('/history_salary/store','Api\HistorySalaryController@store')->name('history_salary.store');
+    Route::post('/history_salary/store','Api\HistorySalaryController@store')->name('history_salary.store');
     Route::get('/history_filter/{slug}','Api\HistorySalaryController@filter')->name('history_salary.filter');
     Route::get('/history_add/{id}','Api\HistorySalaryController@add')->name('history_salary.add');
+    Route::get('/history_add','Api\HistorySalaryController@index')->name('history_salary.index');
         // kpi
         Route::get('/kpi/{id}','Api\KpiController@view')->name('kpi');
         Route::get('/kpi/edit/{id}','Api\KpiController@edit')->name('kpi.edit');

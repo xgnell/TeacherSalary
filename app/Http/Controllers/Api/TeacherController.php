@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\Salary;
 use App\Models\Major;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
@@ -44,6 +45,8 @@ class TeacherController extends Controller
      */
     public function store(createRequest $request)
     {
+        $password = Hash::make($request->password);
+        $request->merge(['password' => $password]);
         $data = $request->all();
         if(Teacher::create($data)){
             return redirect()->route('teacher.index')->with('success', 'Thêm thành công!');
@@ -84,7 +87,7 @@ class TeacherController extends Controller
      */
     public function update(updateRequest $request, Teacher $teacher)
     {
-        $teacher->update($request->all());
+        $teacher->update($request->only('first_name','last_name','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'));
         return redirect()->route('teacher.index')->with('success','Cập nhật thành công!');
     }
 

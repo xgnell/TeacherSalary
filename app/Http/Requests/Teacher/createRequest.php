@@ -26,6 +26,8 @@ class createRequest extends FormRequest
         return [
             'first_name'=>'required',
             'last_name'=>'required',
+            'email'=>'required|unique:teacher,email,',
+            'password'=>'required',
             'birthday'=>'required',
             'gender'=>'required',
             'address'=>'required|max:255|min:1',

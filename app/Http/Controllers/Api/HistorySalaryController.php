@@ -38,13 +38,17 @@ class HistorySalaryController extends Controller
         return view('admin.history.create',compact('search','major','teacher'));
     }
     public function add($id){
-        $teacher = Teacher::join('salary','salary.id','=','teacher.salary_id')->where('teacher.id',$id)->first();
+
+        $teacher =Teacher::where('id',$id)->first();
+        $salary = Teacher::join('salary','salary.id','=','teacher.salary_id')->where('teacher.id',$id)->first();
         $bhxh = Teacher::join('bhxh','bhxh.teacher_id','=','teacher.id')->where('teacher.id',$id)->first();
         $kpi = Teacher::join('kpi','kpi.teacher_id','=','teacher.id')->where('teacher.id',$id)->first();
         return response()->json([
             "teacher"=>$teacher,
+            "salary"=>$salary,
             "bhxh"=>$bhxh,
             "kpi"=>$kpi,
+            
         ]);
 
     }
@@ -64,9 +68,13 @@ class HistorySalaryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'total_teaching_hours' => 'integer',
+            'total_ot_hours'=>'integer',
+        ]);
         $data = $request->all();
         if(HistorySalary::create($data)){
-            return redirect()->route('history_salary.index');
+            return redirect()->route('history_salary.index')->with('success','Đã trả lương thành công!');
         }
     }
 
