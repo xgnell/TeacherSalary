@@ -60,11 +60,10 @@
                         @endif
                     </td>
                     <td class="text-right">
-                        {{-- data-toggle="modal" data-target="#modelId" --}}
+                        {{-- data-toggle="modal" data-target="#modelId"  --}}
                         {{-- javascript:void(0) --}}
-                        {{-- {{ route('history_salary.add',  $each->id) }} --}}
-                        <a href="javascript:void(0)" id="add_payroll" data-id="{{ $each->id }}" data-toggle="modal"
-                            data-target="#modelId" class="btn btn-info">Pay</a>
+                        {{-- {{ route('history_salary.add',$each->id) }} --}}
+                        <a href="javascript:void(0)" id="add_payroll" data-toggle="modal" data-target="#modelId" data-id="{{ $each->id }}" class="btn btn-info">Pay</a>
                     </td>
                 </tr>
             @endforeach
@@ -89,13 +88,16 @@
             });
             $('body').on('click', '#add_payroll', function(e) {
                 var id = $(this).data('id');
+                // alert(id);
                 $.ajax({
                     type: "GET",
                     url: "history_add/" + id,
                     dataType: 'json',
                     success: function(response) {
                         var teacher = response.teacher;
+                        
                         var teacher_id = teacher.id;
+                        alert(teacher_id);
                         var result = response.salary;
                         var salary_basic = result.salary_basic;
                         var salary_per_hour = result.salary_per_hour;
@@ -158,12 +160,6 @@
                 $('input#total_salary').val(Math.round(total_salary));
                 return total_salary;
             });
-            // tinh thang
-            var chuoi_thang = '';
-    for(var i = 1; i <= 12;i++){
-        chuoi_thang += "<option>" + i + "</option>";
-    }
-    document.getElementById('select_month').innerHTML = chuoi_thang;
         });
     </script>
 @endsection
@@ -216,9 +212,9 @@
                                     id="salary_ot_per_hour_1" aria-describedby="helpId">
                             </div>
                             <div class="col-md-12">
-                                <label for=""> Month: </label>
-                                <select id="select_month" name="month" value="tháng">
-                                </select>  
+                                <label for=""> Time: </label>
+                                <input type="date" class="form-control" name="time"
+                                    id="time" aria-describedby="helpId">  
                         </div>
                         </div>
                         <div class="col-md-6">

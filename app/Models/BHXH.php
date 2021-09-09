@@ -9,7 +9,7 @@ class BHXH extends Model
 {
     use HasFactory;
     protected $table='bhxh';
-    protected $fillable =['teacher_id','total_value','month','year'];
+    protected $fillable =['teacher_id','total_value','time'];
     protected $primaryKey = 'teacher_id';
     public function teacher(){
         return $this->hasOne(Teacher::class,'id','teacher_id');

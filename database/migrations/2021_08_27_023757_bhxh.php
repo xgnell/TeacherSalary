@@ -16,9 +16,8 @@ class Bhxh extends Migration
         Schema::create('bhxh', function (Blueprint $table) {
             $table->unsignedInteger('teacher_id');
             $table->integer('total_value');
-            $table->integer('month');
-            $table->integer('year');
-            $table->primary(array('teacher_id','month'));
+            $table->date('time');
+            $table->primary(array('teacher_id','time'));
            $table->foreign('teacher_id')->references('id')->on('teacher');
            $table->timestamps();
         });

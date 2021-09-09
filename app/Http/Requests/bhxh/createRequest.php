@@ -26,8 +26,8 @@ class createRequest extends FormRequest
         return [
             'teacher_id' => 'required|unique:bhxh',
             'total_value' => 'required|integer',
-            'month' => 'required',
-            'year' => 'required'
+            'time' => 'required',
+            
         ];
     }
 }

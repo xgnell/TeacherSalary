@@ -26,8 +26,8 @@ class updateRequest extends FormRequest
     {
         return [
             'total_value' => 'required|integer',
-            'month' => 'required',
-            'year' => 'required'
+            'time' => 'required',
+            
         ];
     }
 }

@@ -82,7 +82,7 @@ class BhxhController extends Controller
     public function update(updateRequest $request,$id)
     {
         $bHXH = BHXH::find($id);
-        $bHXH->update($request->only('teacher_id','total_value','month','year'));
+        $bHXH->update($request->only('teacher_id','total_value','time'));
         return redirect()->route('bhxh.index')->with('success','Cập nhật thành công!');
     }
 

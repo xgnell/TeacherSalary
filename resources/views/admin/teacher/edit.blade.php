@@ -74,21 +74,6 @@
     <div class="col-md-4">
       <div class="row">
         <div class="col-md-12">
-          <label for="">Teaching Formality: </label>
-          <br>
-          <select name="teaching_formality" id="">
-            <option value="1" @if ($teacher->teaching_formality==1)
-                    selected = "selected"                
-            @endif>Fulltime</option>
-            <option value="0" @if ($teacher->teaching_formality==0)
-                selected = "selected"                
-        @endif>PartTime</option>
-          </select>
-          @error('teaching_formality')
-          <small class="help-block" style="color:red">{{$message}}</small>
-          @enderror
-        </div>
-        <div class="col-md-12">
           <label for="">Major: </label>
           <br>
           <select name="major_id" id="">

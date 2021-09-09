@@ -18,7 +18,6 @@
         <th>Teacher Name</th>
         <th>Total Value</th>
         <th>Month</th>
-        <th>Year</th>
         <th>Created At</th>
         <th class="text-right">Action</th>
     </tr>
@@ -29,8 +28,7 @@
             <td>{{$each->teacher_id}}</td>
             <td>{{$each->teacher->first_name}} {{$each->teacher->last_name}}</td>
             <td>{{$each->total_value}}</td>
-            <td>{{$each->month}}</td>
-            <td>{{$each->year}}</td>
+            <td>{{$each->time}}</td>
             <td>{{$each->created_at}}</td>
             <td class="text-right">
                 <a href="{{ route('bhxh.edit',$each->teacher_id) }}" class="btn btn-success">

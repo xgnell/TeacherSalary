@@ -87,7 +87,7 @@ class TeacherController extends Controller
      */
     public function update(updateRequest $request, Teacher $teacher)
     {
-        $teacher->update($request->only('first_name','last_name','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'));
+        $teacher->update($request->only('first_name','last_name','address','phone','birthday','gender','major_id','salary_id','status','image'));
         return redirect()->route('teacher.index')->with('success','Cập nhật thành công!');
     }
 

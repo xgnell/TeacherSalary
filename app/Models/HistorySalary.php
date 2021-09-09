@@ -12,7 +12,7 @@ class HistorySalary extends Model
     protected $table = 'history_salary';
     public $timestamps = false;
     protected $primaryKey = 'teacher_id';
-    protected $fillable =['teacher_id','month','total_salary','total_teaching_hours','total_ot_hours','total_kpi','bhxh'];
+    protected $fillable =['teacher_id','time','total_salary','total_teaching_hours','total_ot_hours','total_kpi','bhxh'];
     public function teacher(){
         return $this->hasOne(Teacher::class,'id','teacher_id');
     }

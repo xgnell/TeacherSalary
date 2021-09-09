@@ -9,7 +9,7 @@ class Kpi extends Model
 {
     use HasFactory;
     protected $table = 'kpi';
-    protected $fillable =['month','teacher_id','total_value'];
+    protected $fillable =['time','teacher_id','total_value'];
     protected $primaryKey = 'teacher_id';
     public $timestamps = false;
     public function teacher(){

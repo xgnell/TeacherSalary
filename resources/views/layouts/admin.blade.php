@@ -137,7 +137,6 @@ crossorigin=anonymous></script>
                 </a>
               </li>
                   @endforeach
-                  
             </ul>
           </li>
           {{-- end category --}}

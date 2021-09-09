@@ -14,9 +14,9 @@
     <input type="hidden" name="teacher_id" value="{{ $teacher->id }}">
 <input type="text" id="total_value" name="total_value">
 <br>
-<label for=""> Month: </label>
-        <select id="select_month" name="month" value="tháng">
-        </select>
+<label for=""> Time: </label>
+<input type="date" id="time" name="time">
+        
         <div>
             <button>Submit</button>
         </div>
@@ -24,11 +24,6 @@
 
 <script>
   
-  var chuoi_thang = '';
-    for(var i = 1; i <= 12;i++){
-        chuoi_thang += "<option>" + i + "</option>";
-    }
-    document.getElementById('select_month').innerHTML = chuoi_thang;
     $('#tinh').click(function(e){
         let total = 0;
         let criteria = document.getElementsByName('criteria');

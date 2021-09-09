@@ -16,8 +16,8 @@ class KPI extends Migration
         Schema::create('kpi', function (Blueprint $table) {
             $table->unsignedInteger('teacher_id');
             $table->unsignedInteger('total_value')->nullable()->default(0);
-            $table->unsignedInteger('month');
-            $table->primary(array('month','teacher_id','total_value'));
+            $table->date('time');
+            $table->primary(array('time','teacher_id','total_value'));
            $table->foreign('teacher_id')->references('id')->on('teacher');
       
         });

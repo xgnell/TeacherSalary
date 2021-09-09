@@ -34,7 +34,7 @@ class KpiController extends Controller
     }
     public function update(Request $request,$id){
         $kpi = Kpi::find($id);
-        $kpi->update($request->only('teacher_id','total_value','month'));
+        $kpi->update($request->only('teacher_id','total_value','time'));
         return redirect()->route('history_salary.create')->with('success','Update Kpi thành công!');
     }
 }

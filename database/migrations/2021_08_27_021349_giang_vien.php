@@ -24,7 +24,6 @@ class GiangVien extends Migration
             $table->string('address');
             $table->integer('phone');
             $table->string('image');
-            $table->boolean('teaching_formality');
             $table->unsignedInteger('major_id');
             $table->unsignedInteger('salary_id');
             $table->boolean('status');

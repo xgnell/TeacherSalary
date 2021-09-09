@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Teacher extends Model
+class Teacher extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'teacher';
-    protected $fillable = ['first_name','last_name','email','password','address','phone','birthday','gender','teaching_formality','major_id','salary_id','status','image'];
+    protected $fillable = ['first_name','last_name','email','password','address','phone','birthday','gender','major_id','salary_id','status','image'];
 
     public function major(){
         return $this->hasOne(Major::class,'id','major_id');
@@ -37,5 +40,23 @@ class Teacher extends Model
             return $query;
         }
     }
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
     
 }
