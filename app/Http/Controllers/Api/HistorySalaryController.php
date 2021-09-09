@@ -38,8 +38,8 @@ class HistorySalaryController extends Controller
         
         return view('admin.history.create',compact('search','major','teacher'));
     }
-    public function add($id){
-        
+    public function add(Request $request){
+        $id = $request->id;
         $teacher =Teacher::where('id',$id)->first();
         $salary = Teacher::join('salary','salary.id','=','teacher.salary_id')->where('teacher.id',$id)->first();
         $bhxh = Teacher::join('bhxh','bhxh.teacher_id','=','teacher.id')->where('teacher.id',$id)->first();

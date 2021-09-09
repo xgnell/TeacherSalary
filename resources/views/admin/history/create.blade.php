@@ -41,7 +41,7 @@
         <tbody>
             @foreach ($teacher as $each)
                 @csrf
-                <input type="hidden" value="{{ $each->id }}" name="teacher_id">
+                <input type="hidden" id="teacher_id" value="{{ $each->id }}" name="teacher_id" >
                 <tr>
                     <td>{{ $each->first_name }} {{ $each->last_name }}</td>
                     <td>
@@ -63,7 +63,8 @@
                         {{-- data-toggle="modal" data-target="#modelId"  --}}
                         {{-- javascript:void(0) --}}
                         {{-- {{ route('history_salary.add',$each->id) }} --}}
-                        <a href="javascript:void(0)" id="add_payroll" data-toggle="modal" data-target="#modelId" data-id="{{ $each->id }}" class="btn btn-info">Pay</a>
+                        <button data-toggle="modal" data-id="{{ $each->id }}" id="add_payroll" data-target="#modelId" class="btn btn-info">Pay</button>
+                        {{-- <a href="javascript:void(0)"    >Pay</a> --}}
                     </td>
                 </tr>
             @endforeach
@@ -88,16 +89,15 @@
             });
             $('body').on('click', '#add_payroll', function(e) {
                 var id = $(this).data('id');
-                // alert(id);
                 $.ajax({
-                    type: "GET",
-                    url: "history_add/" + id,
+                    type: "POST",
+                    url: "{{route('history_salary.add')}}",
                     dataType: 'json',
+                    data: {id: id},
                     success: function(response) {
                         var teacher = response.teacher;
                         
                         var teacher_id = teacher.id;
-                        alert(teacher_id);
                         var result = response.salary;
                         var salary_basic = result.salary_basic;
                         var salary_per_hour = result.salary_per_hour;
@@ -156,8 +156,12 @@
                 var total_teaching_hours = parseFloat($('#total_teaching_hours').val());
                 var total_ot_hours = parseFloat($('#total_ot_hours').val());
                 // tong luong
-                var total_salary = (salary_basic*(total_kpi/100))+(total_teaching_hours*salary_per_hour)+(total_ot_hours*salary_ot_per_hour)-total_bhxh;
-                $('input#total_salary').val(Math.round(total_salary));
+                if(total_kpi > 0 && total_teaching_hours > 0 ){
+                    var total_salary = (salary_basic*(total_kpi/100))+(total_teaching_hours*salary_per_hour)+(total_ot_hours*salary_ot_per_hour)-total_bhxh;
+                    $('input#total_salary').val(Math.round(total_salary));
+                }else{
+                    alert('Bạn chưa kpi hoặc tổng giờ dạy đang trống!');
+                }
                 return total_salary;
             });
         });
