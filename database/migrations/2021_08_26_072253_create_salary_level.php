@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TieuChi extends Migration
+class CreateSalaryLevel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class TieuChi extends Migration
      */
     public function up()
     {
-        Schema::create('criteria', function (Blueprint $table) {
-            $table->increments('id');
-            $table->String('name');
-            $table->Integer('criteria_mark');
+        Schema::create('salary_level', function (Blueprint $table) {
+            $table->unsignedInteger('level');
+            $table->double('basic_salary');
+
+            $table->primary(['level']);
             $table->timestamps();
-           
         });
     }
 
@@ -29,6 +29,6 @@ class TieuChi extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('salary_level');
     }
 }

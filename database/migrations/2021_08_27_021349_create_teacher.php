@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GiangVien extends Migration
+class CreateTeacher extends Migration
 {
     /**
      * Run the migrations.
@@ -15,20 +15,19 @@ class GiangVien extends Migration
     {
         Schema::create('teacher', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('image');
+            $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->string('password');
             $table->date('birthday');
-            $table->boolean('gender');
+            $table->smallInteger('gender');
             $table->string('address');
-            $table->integer('phone');
-            $table->string('image');
             $table->unsignedInteger('major_id');
-            $table->unsignedInteger('salary_id');
-            $table->boolean('status');
+            $table->integer('status');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->foreign('major_id')->references('id')->on('major');
-            $table->foreign('salary_id')->references('id')->on('salary');
             $table->timestamps();
         });
     }
@@ -40,6 +39,6 @@ class GiangVien extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('teacher');
     }
 }
