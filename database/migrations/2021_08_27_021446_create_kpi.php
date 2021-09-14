@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class KPI extends Migration
+class CreateKPI extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,10 @@ class KPI extends Migration
     public function up()
     {
         Schema::create('kpi', function (Blueprint $table) {
-            $table->unsignedInteger('teacher_id');
-            $table->unsignedInteger('total_value')->nullable()->default(0);
-            $table->date('time');
-            $table->primary(array('time','teacher_id','total_value'));
-           $table->foreign('teacher_id')->references('id')->on('teacher');
-      
+            $table->increments('id');
+            $table->string('criteria');
+            $table->integer('max_point');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +28,6 @@ class KPI extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('kpi');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Nganh extends Migration
+class CreateMajor extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class Nganh extends Migration
     {
         Schema::create('major', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('name',50);
-            $table->String('slug');
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class Nganh extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('major');
     }
 }
