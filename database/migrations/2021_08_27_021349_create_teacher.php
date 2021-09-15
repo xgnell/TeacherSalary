@@ -27,6 +27,7 @@ class CreateTeacher extends Migration
             $table->integer('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+            
             $table->foreign('major_id')->references('id')->on('major');
             $table->timestamps();
         });

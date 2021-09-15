@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Criteria;
+namespace App\Http\Requests\Kpi;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,8 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|unique:criteria',
-            'criteria_mark'=>'required',
+            'criteria'=>'required',
+            'max_point'=>'required|integer',
         ];
     }
 }

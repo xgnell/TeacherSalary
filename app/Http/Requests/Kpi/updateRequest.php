@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Criteria;
+namespace App\Http\Requests\Kpi;
 
-use App\Models\Criteria;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class updateRequest extends FormRequest
 {
@@ -26,11 +24,8 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>[
-                'required',
-                Rule::unique('criteria','name')->ignore($this->criteria),
-            ],
-            'criteria_mark'=>'required',
+            'criteria'=>'required',
+            'max_point'=>'required|integer',
         ];
     }
 }

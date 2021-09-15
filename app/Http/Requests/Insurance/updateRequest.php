@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\bhxh;
+namespace App\Http\Requests\Insurance;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class createRequest extends FormRequest
+class updateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,9 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => 'required|unique:bhxh',
-            'total_value' => 'required|integer',
-            'time' => 'required',
-            
+            'type' => 'required',
+            'value' => 'required|numeric',
+            'period_id' => 'required|integer',
         ];
     }
 }

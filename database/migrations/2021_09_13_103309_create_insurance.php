@@ -15,7 +15,8 @@ class CreateInsurance extends Migration
     {
         Schema::create('insurance', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');     // Tính theo % lương
+            $table->string('type');
+            $table->double('value');     // Tính theo % lương
             $table->unsignedInteger('period_id');
             $table->boolean('mandatory');
 
