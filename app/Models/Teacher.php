@@ -11,8 +11,21 @@ use Laravel\Sanctum\HasApiTokens;
 class Teacher extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = 'teacher';
-    protected $fillable = ['first_name','last_name','email','password','address','phone','birthday','gender','major_id','salary_id','status','image'];
+
+    protected $fillable = [
+        'image',
+        'name',
+        'email',
+        'phone',
+        'password',
+        'address',
+        'birthday',
+        'gender',
+        'major_id',
+        'status',
+    ];
 
     public function major(){
         return $this->hasOne(Major::class,'id','major_id');
@@ -36,7 +49,7 @@ class Teacher extends Authenticatable
     }
     public function scopeSearch($query){
         if($search = request()->search){
-            $query = $query->where('last_name','like',"%$search%");
+            $query = $query->where('name','like',"%$search%");
             return $query;
         }
     }

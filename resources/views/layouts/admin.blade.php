@@ -65,7 +65,7 @@ crossorigin=anonymous></script>
       </li>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->name }}</a>
+          {{-- <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->name }}</a> --}}
           <ul class="dropdown-menu">
             {{-- <li><a href="">Thông Tin</a></li> --}}
             <li><a href="" Onclick="return confirm('Are you sure you want to logout')">Thoát tài khoản</a></li>
@@ -109,7 +109,7 @@ crossorigin=anonymous></script>
           <img src="{{ asset('public/ad/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          {{-- <a href="#" class="d-block">{{ Auth::user()->name }}</a> --}}
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -143,7 +143,7 @@ crossorigin=anonymous></script>
             @endif         
               @endforeach
               {{-- account --}}
-              @if (Auth::user()->role ==1)
+              {{-- @if (Auth::user()->role ==1) --}}
               <li class="nav-item">
                 <a href="{{ route('user.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -168,7 +168,7 @@ crossorigin=anonymous></script>
                       
                 </ul>
               </li>
-              @endif
+              {{-- @endif --}}
             
       {{-- end category --}}
         

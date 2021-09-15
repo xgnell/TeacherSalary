@@ -19,16 +19,16 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
+// Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/','Api\AdminController@dashboard')->name('admin.dashboard');
     Route::get('/file','Api\AdminController@file')->name('admin.file');
     Route::resources([
         'teacher'=>'Api\TeacherController',
-        'criteria'=>'Api\CriteriaController',
+        'kpi'=>'Api\KpiController',
         'major'=>'Api\MajorController',
         'account'=> 'Api\AccountController',
         'user'=>'Api\UserController',
-        'bhxh'=>'Api\BhxhController',
+        'insurance'=>'Api\InsuranceController',
         'salary'=>'Api\SalaryController',
         'salary_level'=>'Api\SalaryLevelController',
     ]);
@@ -37,12 +37,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/history_filter/{slug}','Api\HistorySalaryController@filter')->name('history_salary.filter');
     Route::post('/history_add','Api\HistorySalaryController@add')->name('history_salary.add');
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
-        // kpi
-        Route::get('/kpi/{id}','Api\KpiController@view')->name('kpi');
-        Route::get('/kpi/edit/{id}','Api\KpiController@edit')->name('kpi.edit');
-        Route::post('/kpi/add','Api\KpiController@add')->name('kpi.add');
-        Route::post('/kpi/update/{id}','Api\KpiController@update')->name('kpi.update');
-});
+    
+    // kpi
+    // Route::get('/kpi/{id}','Api\KpiController@view')->name('kpi');
+    // Route::get('/kpi/edit/{id}','Api\KpiController@edit')->name('kpi.edit');
+    // Route::post('/kpi/add','Api\KpiController@add')->name('kpi.add');
+    // Route::post('/kpi/update/{id}','Api\KpiController@update')->name('kpi.update');
+// });
 
 
 Route::get('admin/login','Api\AdminController@login')->name('login');
