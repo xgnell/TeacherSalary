@@ -25,10 +25,13 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'teacher'=>'Api\TeacherController',
         'kpi'=>'Api\KpiController',
+        'history_kpi' => 'Api\HistoryKpiController',
         'major'=>'Api\MajorController',
         'account'=> 'Api\AccountController',
         'user'=>'Api\UserController',
         'insurance'=>'Api\InsuranceController',
+        'insurance_period' => 'Api\InsurancePeriodController',
+        'teacher_insurance' => 'Api\TeacherInsuranceController',
         'salary'=>'Api\SalaryController',
         'salary_level'=>'Api\SalaryLevelController',
     ]);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\InsurancePeriod;
 use Illuminate\Http\Request;
+use App\Http\Requests\InsurancePeriod\createRequest;
+use App\Http\Requests\InsurancePeriod\updateRequest;
 
 class InsurancePeriodController extends Controller
 {
@@ -13,9 +15,11 @@ class InsurancePeriodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->get('search');
+        $periods = InsurancePeriod::paginate(5);
+        return view('admin.insurance.period.index', compact('search', 'periods'));
     }
 
     /**
@@ -25,7 +29,7 @@ class InsurancePeriodController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.insurance.period.create');
     }
 
     /**
@@ -34,9 +38,12 @@ class InsurancePeriodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(createRequest $request)
     {
-        //
+        $period = $request->validated();
+        if (InsurancePeriod::create($period)) {
+            return redirect()->route('insurance_period.index')->with('success', 'Add success!');
+        }
     }
 
     /**
@@ -56,9 +63,10 @@ class InsurancePeriodController extends Controller
      * @param  \App\Models\InsurancePeriod  $insurancePeriod
      * @return \Illuminate\Http\Response
      */
-    public function edit(InsurancePeriod $insurancePeriod)
+    public function edit($id)
     {
-        //
+        $period = InsurancePeriod::find($id);
+        return view('admin.insurance.period.edit', compact('period'));
     }
 
     /**
@@ -68,9 +76,13 @@ class InsurancePeriodController extends Controller
      * @param  \App\Models\InsurancePeriod  $insurancePeriod
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InsurancePeriod $insurancePeriod)
+    public function update(updateRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $period = InsurancePeriod::find($id);
+        $period->update($data);
+
+        return redirect()->route('insurance_period.index')->with('success', 'Update success!');
     }
 
     /**
@@ -79,8 +91,8 @@ class InsurancePeriodController extends Controller
      * @param  \App\Models\InsurancePeriod  $insurancePeriod
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InsurancePeriod $insurancePeriod)
-    {
-        //
-    }
+    // public function destroy(InsurancePeriod $insurancePeriod)
+    // {
+    //     //
+    // }
 }
