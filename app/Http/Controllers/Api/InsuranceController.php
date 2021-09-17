@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Insurance;
 use Illuminate\Http\Request;
-use App\Models\Teacher;
 use App\Http\Requests\Insurance\createRequest;
 use App\Http\Requests\Insurance\updateRequest;
 use App\Models\InsurancePeriod;
