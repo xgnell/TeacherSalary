@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-        @foreach ($user as $each)
+        @foreach ($admin as $each)
         <tr>
             <td>{{$each->name}}</td>
             <td>{{$each->email}}</td>
@@ -36,7 +36,7 @@
          
             <td>{{$each->created_at}}</td>
             <td class="text-right">
-                <a href="{{ route('user.edit',$each->id) }}" class="btn btn-success">
+                <a href="{{ route('admin.edit',$each->id) }}" class="btn btn-success">
                     <i class="fa fa-edit"></i>
                 </a>
             </td>
@@ -53,7 +53,7 @@
 </form>
 <hr>
 <div class="paginate">
-    {{ $user->appends(request()->all())->links() }}
+    {{ $admin->appends(request()->all())->links() }}
 </div>
 
 @endsection

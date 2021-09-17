@@ -8,9 +8,8 @@
 <table class="table table-hover">
     <thead>
         <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Criteria</th>
+        <th>Level</th>
+        <th>Salary Basic</th>
         <th>Created At</th>
         <th class="text-right">Action</th>
     </tr>
@@ -18,15 +17,14 @@
     <tbody>
         @foreach ($salary_lv as $each)
         <tr>
-            <td>{{$each->id}}</td>
-            <td>{{$each->name}}</td>
-            <td>{{$each->criteria}}</td>
+            <td>{{$each->level}}</td>
+            <td>{{$each->basic_salary}}</td>
             <td>{{$each->created_at}}</td>
             <td class="text-right">
-                <a href="{{ route('salary_level.edit',$each->id) }}" class="btn btn-success">
+                <a href="{{ route('salary_level.edit',$each->level) }}" class="btn btn-success">
                     <i class="fa fa-edit"></i>
                 </a>
-                <a href="{{ route('salary_level.destroy', $each->id) }}" class="btn btn-danger btndelete">
+                <a href="{{ route('salary_level.destroy', $each->level) }}" class="btn btn-danger btndelete">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

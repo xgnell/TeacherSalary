@@ -8,22 +8,12 @@
     <div class="row">
       <div class="col-md-8">
         <div class="row">
-          <div class="col-md-12">
-              <div class="form-group">
-            <label for="">First Name:</label>
-            <input type="text"
-              class="form-control" value="{{ $teacher->first_name }}" name="first_name" id="first_name" aria-describedby="helpId" placeholder="first name">
-              </div>
-              @error('first_name')
-              <small class="help-block" style="color:red">{{$message}}</small>
-          @enderror
-              
-      </div>
+         
       <div class="col-md-12">
-          <label for="">Last Name: </label>
+          <label for="">Name: </label>
           <input type="text"
-            class="form-control" value="{{ $teacher->last_name }}" name="last_name" id="last_name" aria-describedby="helpId" placeholder="last name">
-          @error('last_name')
+            class="form-control" value="{{ $teacher->name }}" name="name" id="name" aria-describedby="helpId" placeholder="name">
+          @error('name')
           <small class="help-block" style="color:red">{{$message}}</small>
           @enderror
           </div>
@@ -87,20 +77,7 @@
           <small class="help-block" style="color:red">{{$message}}</small>
           @enderror
         </div>
-        <div class="col-md-12">
-          <label for="">Salary: </label>
-          <br>
-          <select name="salary_id" id="">
-            @foreach ($salary as $item)
-                <option value="{{ $item->id }}" @if ($teacher->salary_id==$item->id)
-                    selected = "selected"                
-            @endif>{{ $item->salary_level->name }} </option>
-            @endforeach
-          </select>
-          @error('salary_id')
-          <small class="help-block" style="color:red">{{$message}}</small>
-          @enderror
-        </div>
+
         <div class="col-md-12">
           <label for="">Status:</label>
           <div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\salary\createRequest;
 use App\Http\Requests\salary\updateRequest;
 use App\Models\Salary;
+use App\Models\Teacher;
+use App\Models\Major;
 use App\Models\SalaryLevel;
 use Illuminate\Http\Request;
 
@@ -18,8 +20,10 @@ class SalaryController extends Controller
      */
     public function index(Request $request)
     {
-        $salary = Salary::orderBy('salary_basic', 'ASC')->paginate(5);
-        return view('admin.salary.index',compact('salary'));
+        $search = $request->get('search');
+        $salaryLevel =SalaryLevel::all();
+        $salary = Salary::join('salary_level','salary_level.level','=','salary.salary_level')->paginate(5);
+        return view('admin.salary.salarytea.index',compact('salary','salaryLevel','search'));
     }
 
     /**
@@ -27,12 +31,37 @@ class SalaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(Request $request)
+    {   
+        $search = $request->get('search');
+        $major = Major::all();
         $salaryLevel =SalaryLevel::all();
-        return view('admin.salary.create',compact('salaryLevel'));
+        $teacher =Teacher::orderBy('id','ASC')->search()->paginate(5);
+        return view('admin.salary.salarytea.create',compact('salaryLevel','major','search','teacher'));
     }
 
+    public function add(Request $request)
+    {   
+        $id = $request->id;
+        $level = $request->level;
+        $salary_level = SalaryLevel::where('level',$level)->first();
+        $teacher =Teacher::where('id',$id)->first();
+        $salary = Salary::join('salary_level','salary_level.level','=','salary.salary_level')->where('teacher_id',$id)->first();
+        return response()->json([
+            "teacher"=>$teacher,  
+            "salary_level"=>$salary_level,
+            "salary"=>$salary,
+        ]);
+    }
+    public function filter(Request $request,$slug)
+    {   
+        $search = $request->get('search');
+        $major = Major::all();
+        $salaryLevel =SalaryLevel::all();
+        $teacher =Teacher::join('major','major.id','=','teacher.major_id')->where('slug',$slug)->search()->paginate(5);
+        return view('admin.salary.salarytea.create',compact('major','salaryLevel','search','teacher'));
+    }
+    // CREATE VIEW list_salary_level as SELECT salary.*,salary_level.level,salary_level.basic_salary FROM salary INNER JOIN salary_level ON salary_level.level = salary.salary_level
     /**
      * Store a newly created resource in storage.
      *
@@ -41,7 +70,7 @@ class SalaryController extends Controller
      */
     public function store(createRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         if(Salary::create($data)){
             return redirect()->route('salary.index')->with('success','Thêm thành công!');
         }
@@ -64,10 +93,16 @@ class SalaryController extends Controller
      * @param  \App\Models\Salary  $salary
      * @return \Illuminate\Http\Response
      */
-    public function edit(Salary $salary)
+    public function editt(Request $request)
     {
-        $salaryLevel = SalaryLevel::all();
-        return view('admin.salary.edit',compact('salary','salaryLevel'));
+        $id = $request->id;
+        $level = $request->level;
+        $salary_level = SalaryLevel::where('level',$level)->first();
+        $salary = Salary::join('salary_level','salary_level.level','=','salary.salary_level')->join('teacher','teacher.id','=','salary.teacher_id')->where('salary.teacher_id',$id)->first();
+        return response()->json([
+            "salary_level"=>$salary_level,
+            "salary"=>$salary,  
+        ]);
     }
 
     /**
@@ -77,9 +112,11 @@ class SalaryController extends Controller
      * @param  \App\Models\Salary  $salary
      * @return \Illuminate\Http\Response
      */
-    public function update(updateRequest $request, Salary $salary)
+    public function updated(updateRequest $request)
     {
-        $salary->update($request->only('salary_level_id','salary_basic','salary_per_hour','salary_ot_per_hour'));
+        $id= $request->teacher_id;
+        $salary = Salary::find($id);
+        $salary->update($request->only('salary_level','salary_per_hour','salary_overtime_per_hour','created_by'));
         return redirect()->route('salary.index')->with('success','Cập nhật thành công!');
     }
 

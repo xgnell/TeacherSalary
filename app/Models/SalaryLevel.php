@@ -9,5 +9,6 @@ class SalaryLevel extends Model
 {
     use HasFactory;
     protected $table = 'salary_level';
-    protected $fillable = ['name', 'criteria'];
+    public $primaryKey = 'level';
+    protected $fillable = ['level', 'basic_salary'];
 }

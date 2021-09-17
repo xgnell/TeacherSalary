@@ -9,7 +9,7 @@ class Major extends Model
 {
     use HasFactory;
     protected $table = 'major';
-    protected $fillable = ['name','slug'];
+    protected $fillable = ['name','slug','created_by'];
 
     public function teacher(){
         return $this->hasMany(Teacher::class,'major_id','id');

@@ -24,8 +24,8 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=> "required|unique:salary_level,name,",
-            "criteria"=> "required",
+            "level"=> "required|unique:salary_level,level,",
+            "basic_salary"=> "required",
         ];
     }
 }

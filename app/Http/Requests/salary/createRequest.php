@@ -24,10 +24,9 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            'salary_basic'=>'required|integer',
-            'salary_per_hour'=>'required|integer',
-            'salary_ot_per_hour'=>'required|integer',
-            'salary_level_id'=>'required',
+            'salary_per_hour'=>'required',
+            'salary_overtime_per_hour'=>'required',
+            'salary_level'=>'required',
         ];
     }
 }

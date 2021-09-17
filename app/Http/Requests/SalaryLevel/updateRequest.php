@@ -26,11 +26,11 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>[
+            'level'=>[
                 'required',
-                Rule::unique('salary_level','name')->ignore($this->salary_level),
+                Rule::unique('salary_level','level')->ignore($this->salary_level),
             ],
-            'criteria'=> 'required'
+            'basic_salary'=> 'required'
         ];
     }
 }

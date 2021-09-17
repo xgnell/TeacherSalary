@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\createRequest;
 use App\Http\Requests\Teacher\updateRequest;
@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Salary;
 use App\Models\Major;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
@@ -45,9 +46,22 @@ class TeacherController extends Controller
      */
     public function store(createRequest $request)
     {
-        $password = Hash::make($request->password);
+        $rand = Str::random(6);
+        $password = Hash::make($rand);
         $request->merge(['password' => $password]);
         $data = $request->all();
+        Mail::send('admin.mail.mailpassword',[
+            'name' => $request->name,
+            'address'=>$request->address,
+            'phone'=>$request->phone,
+            'birthday'=>$request->birthday,
+            'rand' =>$rand,
+        ], function($message) use($request){
+            $mail = $request->email;
+            $message->to($mail,$request->name);
+            $message->from('nguyenvdat8@gmail.com');
+            $message->subject('Confirm');
+        });
         if(Teacher::create($data)){
             return redirect()->route('teacher.index')->with('success', 'Thêm thành công!');
         }
@@ -61,7 +75,6 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        
         return view('admin.teacher.show',compact('teacher'));
     }
 
@@ -101,4 +114,5 @@ class TeacherController extends Controller
     {
         //
     }
+    
 }

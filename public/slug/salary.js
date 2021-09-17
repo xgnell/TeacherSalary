@@ -1,7 +1,18 @@
 
+$(document).ready(function() {
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+
+
+
+
+  
 $('input#salary_per_hour').keyup(function(event) {
     let salary_per_hour, percent ; 
-    percent = $('#percent').val();
+    percent = $('#value').val();
     salary_per_hour = $(this).val();
     
     let salary_ot_2 = parseFloat(percent);
@@ -9,7 +20,14 @@ $('input#salary_per_hour').keyup(function(event) {
     console.log(salary_per_hour);
     console.log(percent);
     let salary_ot_per_hour = (salary_ot_1+(salary_ot_2/100*salary_ot_1));
-      $('input#salary_ot_per_hour').val(Math.round(salary_ot_per_hour));
+      $('input#salary_overtime_per_hour').val(Math.round(salary_ot_per_hour));
       return salary_ot_per_hour;
+
+});
+
+var chuoi= '';
+for(var i=1; i<=100;i++){
+    chuoi += "<option>" + i +"</option>"
+}document.getElementById('value').innerHTML=chuoi;
 
 });

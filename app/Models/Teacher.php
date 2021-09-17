@@ -33,20 +33,7 @@ class Teacher extends Authenticatable
     public function salary(){
         return $this->hasOne(Salary::class,'id','salary_id');
     }
-    public function bhxh(){
-        return $this->hasOne(BHXH::class,'teacher_id','id');
-    }
-    public function kpi(){
-        return $this->hasOne(Kpi::class,'teacher_id','id');
-    }
 
-    public function getGenderNameAttribute(){
-        if($this->gender==1){
-            return "male";
-        }else{
-            return "female";
-        }
-    }
     public function scopeSearch($query){
         if($search = request()->search){
             $query = $query->where('name','like',"%$search%");

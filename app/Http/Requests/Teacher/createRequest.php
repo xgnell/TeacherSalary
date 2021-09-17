@@ -24,15 +24,12 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required',
-            'last_name'=>'required',
+            'name'=>'required',
             'email'=>'required|unique:teacher,email,',
-            'password'=>'required',
             'birthday'=>'required',
             'gender'=>'required',
             'address'=>'required|max:255|min:1',
             'phone'=>'required|min:10|max:13', 
-            'status'=>'required',
         ];
     }
 }

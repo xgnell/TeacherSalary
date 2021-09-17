@@ -7,22 +7,11 @@
     <div class="row">
       <div class="col-md-8">
         <div class="row">
-          <div class="col-md-12">
-              <div class="form-group">
-            <label for="">First Name:</label>
-            <input type="text"
-              class="form-control" name="first_name" id="first_name" aria-describedby="helpId" placeholder="first name">
-              </div>
-              @error('first_name')
-              <small class="help-block" style="color:red">{{$message}}</small>
-          @enderror
-              
-      </div>
       <div class="col-md-12">
-          <label for="">Last Name: </label>
+          <label for="">Name: </label>
           <input type="text"
-            class="form-control" name="last_name" id="last_name" aria-describedby="helpId" placeholder="last name">
-          @error('last_name')
+            class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="name">
+          @error('name')
           <small class="help-block" style="color:red">{{$message}}</small>
           @enderror
           </div>
@@ -34,14 +23,6 @@
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
             </div>
-            <div class="col-md-12">
-              <label for="">password: </label>
-              <input type="text"
-                class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="password">
-              @error('password')
-              <small class="help-block" style="color:red">{{$message}}</small>
-              @enderror
-              </div>
           <div class="col-md-12">
             <label for="">Address: </label>
             <input type="text"
@@ -80,7 +61,6 @@
           </div>
       </div>
       {{-- end ben trai --}}
-      
       <button class="btn btn-primary">Submit</button>
     </div>
     <div class="col-md-4">
@@ -94,18 +74,6 @@
             @endforeach
           </select>
           @error('major_id')
-          <small class="help-block" style="color:red">{{$message}}</small>
-          @enderror
-        </div>
-        <div class="col-md-12">
-          <label for="">Salary: </label>
-          <br>
-          <select name="salary_id" id="">
-            @foreach ($salary as $item)
-                <option value="{{ $item->id }}">{{ $item->salary_level->name }} </option>
-            @endforeach
-          </select>
-          @error('salary_id')
           <small class="help-block" style="color:red">{{$message}}</small>
           @enderror
         </div>
@@ -142,9 +110,6 @@
       </div>
     </div>
     </div>
-    
-    
-
 </form>
 
 <!-- Modal -->
@@ -166,15 +131,16 @@
       </div>
   </div>
 </div>
-@endsection
-<script>
-  
-    $('#modelId').on('hide.bs.modal',event =>{
-        var _link = $('input#image').val();
-        var _img = "{{ url('public/upload') }}" + "/" + _link;
-        $('img#showImg').attr('src',_img);
-    });
 
-   
+@endsection
+@section('js')
+    <script>
+  
+  $('#modelId').on('hide.bs.modal',event =>{
+      var _link = $('input#image').val();
+      var _img = "{{ url('public/upload') }}" + "/" + _link;
+      $('img#showImg').attr('src',_img);
+  });
 
 </script>
+@endsection

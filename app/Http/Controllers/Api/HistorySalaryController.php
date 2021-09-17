@@ -48,10 +48,8 @@ class HistorySalaryController extends Controller
             "teacher"=>$teacher,
             "salary"=>$salary,
             "bhxh"=>$bhxh,
-            "kpi"=>$kpi,
-            
+            "kpi"=>$kpi,   
         ]);
-
     }
     public function filter(Request $request,$slug){
         $search = $request->get('search');

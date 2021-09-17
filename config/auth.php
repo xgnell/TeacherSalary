@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'tea' => [
+        'teacher' => [
             'driver' => 'session',
             'provider' => 'teacher',
         ],
@@ -66,7 +66,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Admin::class,
         ],
         'teacher' => [
             'driver' => 'eloquent',

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -18,8 +18,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $user = User::orderBy('created_at','ASC')->paginate(5);
-        return view('admin.admin.index',compact('user', 'search'));
+        $admin = Admin::orderBy('created_at','ASC')->paginate(5);
+        return view('admin.admin.index',compact('admin', 'search'));
 
     }
 
@@ -42,7 +42,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email'=>'required|email|unique:users,email,',
+            'email'=>'required|email|unique:admin,email,',
+            'phone'=>'required|unique:admin,phone,',
             'password'=>'required',
             'confirm_password'=>'required|same:password',
         ],[
@@ -53,8 +54,8 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
         $request->merge(['password' => $password]);
-        if(User::create($request->all())){
-            return redirect()->route('user.index')->with('success','Thêm Thành công');
+        if(Admin::create($request->all())){
+            return redirect()->route('admin.index')->with('success','Thêm Thành công');
         }
 
     }
@@ -78,8 +79,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('admin.admin.edit',compact('user'));
+        $admin = Admin::find($id);
+        return view('admin.admin.edit',compact('admin'));
     }
 
     /**
@@ -91,14 +92,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $admin = Admin::find($id);
         $this->validate($request,[
-            Rule::unique('users','email')->ignore($user),
+            Rule::unique('admin','email')->ignore($admin),
+            Rule::unique('admin','phone')->ignore($admin),
             'email'=>'required|email',
         ]);
         
-        $user->update($request->only('name','email','role'));
-        return redirect()->route('user.index')->with('success','Cập Nhật Thành công');
+        $admin->update($request->only('name','email','phone','birthday','image','status','gender','role'));
+        return redirect()->route('admin.index')->with('success','Cập Nhật Thành công');
 
     }
 

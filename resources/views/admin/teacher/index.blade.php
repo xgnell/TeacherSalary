@@ -27,7 +27,7 @@
         @foreach ($teacher as $each)
         <tr>
             <td>{{$each->id}}</td>
-            <td>{{$each->first_name}} {{$each->last_name}}</td>
+            <td>{{$each->name}}</td>
             <td>{{$each->genderName}}</td>
             <td>
                 @if ($each->status==1)

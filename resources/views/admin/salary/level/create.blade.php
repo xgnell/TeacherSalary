@@ -7,20 +7,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-              <label for="">Name:</label>
+              <label for="">Level:</label>
               <input type="text"
-                class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="name">
+                class="form-control" name="level" id="level" aria-describedby="helpId" placeholder="level">
                 </div>
-                @error('name')
+                @error('level')
                 <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
                 
         </div>
         <div class="col-md-12">
-            <label for="">criteria: </label>
+            <label for="">Salary Basic: </label>
             <input type="text"
-              class="form-control" name="criteria" id="criteria" aria-describedby="helpId" placeholder="criteria">
-            @error('criteria')
+              class="form-control" name="basic_salary" id="basic_salary" aria-describedby="helpId" placeholder="basic_salary">
+            @error('basic_salary')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
     </div>

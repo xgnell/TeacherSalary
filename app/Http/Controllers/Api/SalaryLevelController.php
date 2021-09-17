@@ -17,8 +17,8 @@ class SalaryLevelController extends Controller
      */
     public function index()
     {
-        $salary_lv = SalaryLevel::orderBy('name', 'ASC')->paginate(5);
-        return view('admin.salaryLevel.index',compact('salary_lv'));
+        $salary_lv = SalaryLevel::orderBy('level', 'ASC')->paginate(5);
+        return view('admin.salary.level.index',compact('salary_lv'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SalaryLevelController extends Controller
      */
     public function create()
     {
-        return view('admin.salaryLevel.create');
+        return view('admin.salary.level.create');
     }
 
     /**
@@ -37,9 +37,15 @@ class SalaryLevelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(createRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+      
+        $this->validate($request,[
+            'level'=> "required|unique:salary_level,level",
+            'basic_salary'=> "required",
+        ]); 
+        $data = $request->all();
+        
         if(SalaryLevel::create($data)){
             return redirect()->route('salary_level.index')->with('success','Thêm mới thành công!');
         }
@@ -76,7 +82,7 @@ class SalaryLevelController extends Controller
      */
     public function update(updateRequest $request, SalaryLevel $salaryLevel)
     {
-        $salaryLevel->update($request->validated('name','criteria'));
+        $salaryLevel->update($request->validated('level','basic_salary'));
         return redirect()->route('salary_level.index')->with('success','Cập nhật thành công!');
     }
 
@@ -89,5 +95,6 @@ class SalaryLevelController extends Controller
     public function destroy(SalaryLevel $salaryLevel)
     {
         $salaryLevel->delete();
+        return redirect()->route('salary_level.index')->with('success','xóa thành công!');
     }
 }
