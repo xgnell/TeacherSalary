@@ -10,6 +10,7 @@ use App\Models\Teacher;
 use App\Models\Major;
 use App\Models\SalaryLevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SalaryController extends Controller
 {
@@ -22,7 +23,7 @@ class SalaryController extends Controller
     {
         $search = $request->get('search');
         $salaryLevel =SalaryLevel::all();
-        $salary = Salary::join('salary_level','salary_level.level','=','salary.salary_level')->paginate(5);
+        $salary = Salary::join('salary_level','salary_level.level','=','salary.salary_level')->search()->paginate(5);
         return view('admin.salary.salarytea.index',compact('salary','salaryLevel','search'));
     }
 
@@ -112,12 +113,38 @@ class SalaryController extends Controller
      * @param  \App\Models\Salary  $salary
      * @return \Illuminate\Http\Response
      */
-    public function updated(updateRequest $request)
+    public function updated(Request $request)
     {
-        $id= $request->teacher_id;
+        $validator = Validator::make($request->all(), [
+            'salary_per_hour' => 'required',
+            'salary_overtime_per_hour'=>'required',
+            'salary_level'=>'required',
+        ]);
+        if ($validator->fails()){
+            $errors = $validator->errors(); 
+            return response()->json([
+                'error' => $errors,
+               
+            ]);
+        }
+        $id= $request->id;   
+        $updated_by = $request->updated_by;
+        $salary_level= $request->salary_level;
+        $salary_per_hour = $request->salary_per_hour;
+        $salary_overtime_per_hour = $request->salary_overtime_per_hour;
+        $data = array(
+            'salary_level' => $salary_level,
+            'salary_per_hour' => $salary_per_hour,
+            'updated_by'=>$updated_by,
+            'salary_overtime_per_hour' =>$salary_overtime_per_hour,
+        ); 
         $salary = Salary::find($id);
-        $salary->update($request->only('salary_level','salary_per_hour','salary_overtime_per_hour','created_by'));
-        return redirect()->route('salary.index')->with('success','Cập nhật thành công!');
+        if($salary->update($data)){
+            return response()->json([
+            'success' => "update success",
+        ]);
+        }
+        
     }
 
     /**

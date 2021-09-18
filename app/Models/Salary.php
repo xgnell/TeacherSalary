@@ -21,4 +21,10 @@ class Salary extends Model
     public function admin(){
         return $this->hasOne(Admin::class,'id','updated_by');
     }
+    public function scopeSearch($query){
+        if($search = request()->search){
+            $query = $query->join('teacher','teacher.id','=','salary.teacher_id')->where('name','like',"%$search%");
+            return $query;
+        }
+    }
 }

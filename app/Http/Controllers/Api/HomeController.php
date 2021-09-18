@@ -8,6 +8,7 @@ use App\Models\Major;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -17,9 +18,24 @@ class HomeController extends Controller
     }
     public function contact(){
         $major = Major::all();
-        return view('user.contact',compact('major'));
+        $id = Auth::guard('teacher')->user()->id;
+        $teacher = Teacher::where('id',$id)->first();
+        return view('user.contact',compact('major','teacher'));
     }
-
+    public function post_contact(Request $request) {
+        Mail::send('mail.contact',[
+            'name' => $request->name,
+            'message' => $request->message,
+        ], function($message) use($request){
+            $mail = $request->email;
+            $message->to('nguyenvdat8@gmail.com',$request->name);
+            $message->from($mail);
+            $message->subject('Feedback');
+        });
+        return response()->json([
+            'success'=>'Feedback success!',
+        ]);
+     }
     public function mysalary(){
 
         return view('user.mysalary');

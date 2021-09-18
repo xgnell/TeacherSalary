@@ -29,6 +29,7 @@ Route::group(['middleware' => ['teacher']],function(){
     Route::get('/mysalary','Api\Homecontroller@mysalary')->name('mysalary');
     Route::get('/staff','Api\Homecontroller@staff')->name('staff');
     Route::post('/change-password','Api\Homecontroller@change')->name('home.change');
+    Route::post('/post_contact','Api\Homecontroller@post_contact')->name('home.contact');
 });
 
 

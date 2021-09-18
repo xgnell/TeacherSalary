@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
+
 <form class="form-inline">
     <div class="form-group">
         <label for=""></label>
@@ -11,7 +12,9 @@
 </form>
 <hr>
 <label for="">Salary Caculate</label>
-<table class="table table-hover">
+<div class="alert2" role="alert2" style="text-align: center">
+</div>
+<table class="table table-hover" id="table_id">
     <thead>
         <tr>
             <th>Teacher Name</th>
@@ -22,10 +25,12 @@
             <th class="text-right">Action</th>
         </tr>
     </thead>
+   
     <tbody>
-        @foreach ($salary as $each)
+        
+        @foreach ($salary as $each) 
+    
             @csrf
-            <input type="hidden" id="teacher_id" value="{{ $each->id }}" name="teacher_id" >
             <tr>
                 <td>{{ $each->teacher->name }}</td>
                 <td>
@@ -46,9 +51,11 @@
                     <button data-toggle="modal" data-id="{{ $each->teacher_id }}" id="pay" data-target="#modelId" class="btn btn-info">edit</button>
                 </td>
             </tr>
+    
         @endforeach
-    </tbody>
 
+    </tbody>
+   
 </table>
 <div class="paginate">
     {{ $salary->appends(request()->all())->links() }}
@@ -73,10 +80,13 @@
                 data: {id: id},
                 success: function(response) {
                     var result = response.salary;
+                    var teacher_id = parseFloat(result.id);
+                    var salary_per_hour=parseFloat(result.salary_per_hour);
+                    var salary_overtime_per_hour=parseFloat(result.salary_overtime_per_hour);
                     $('#teacher').html(result.name);
-                    $('#teacher_id').val(result.id);
-                    $('#salary_overtime_per_hour').val(result.salary_overtime_per_hour);
-                    $('#salary_per_hour').val(result.salary_per_hour);
+                    $('#teacher_id').val(teacher_id);
+                    $('#salary_overtime_per_hour').val(salary_overtime_per_hour);
+                    $('#salary_per_hour').val(salary_per_hour);
                 }
             });
 
@@ -95,13 +105,50 @@
             });
 
         });
+        $('body').on('click', '#update', function(e) {
+            var _id = $('#teacher_id').val();
+            var salary_overtime_per_hour = $('#salary_overtime_per_hour').val();
+             var salary_per_hour = $('#salary_per_hour').val();
+             var salary_level = $('#salary_level').val();
+             var updated_by= $('#updated_by').val();
+            $.ajax({
+                type: "POST",
+                url: "{{route('salary.updated')}}",
+                dataType: 'json',
+                data: {id: _id,
+                    salary_overtime_per_hour:salary_overtime_per_hour,
+                    salary_per_hour:salary_per_hour,
+                    salary_level:salary_level,
+                    updated_by:updated_by,
+                },
+                success: function(response) {
+                    if(response.error) {
+                        var err = response.error;
+                       
+                            $('#salary_level_e').html(err.salary_level);
+                        $('#salary_overtime_per_hour_e').html(err.salary_overtime_per_hour);
+                        $('#salary_per_hour_e').html(err.salary_per_hour);
+                   
+                       
+                    }else if(response.success) {
+                         $("#modelId").modal('hide');
+                         $("#table_id").load(window.location + " #table_id");
+                    $(".alert2").addClass("alert-success");
+                    $(".alert2").html(response.success);
+                     setTimeout(function(){  $(".alert-success").hide(); }, 2000);
+                    }
+                   
+                }
+            });
+
+        });
    
     });
 </script>
 @endsection
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" style="display: none" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,8 +158,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('salary.updated')}}">
-                    @csrf
+               
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -130,12 +176,10 @@
                             <label for="">Salary level:</label>
                             <select name="salary_level" id="salary_level">
                                 @foreach ($salaryLevel as $each)
-                                    <option id="salary_option" value="{{ $each->level }}">{{ $each->level }}</option>
+                                    <option value="{{ $each->level }}">{{ $each->level }}</option>
                                 @endforeach
                             </select>
-                            @error('salary_level')
-                                <small class="help-block" style="color:red">{{ $message }}</small>
-                            @enderror
+                                <small class="help-block" id="salary_level_e" style="color:red"></small>
                             <br>
                             <label for="">Salary Basic:</label>
                             <label for="" id="salary_basic"></label>
@@ -143,12 +187,10 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Salary per hour:</label>
-                                <input type="text" class="form-control" name="salary_per_hour" id="salary_per_hour"
+                                <input type="text" value="" class="form-control" name="salary_per_hour" id="salary_per_hour"
                                     aria-describedby="helpId" placeholder="salary per hour">
                             </div>
-                            @error('salary_per_hour')
-                                <small class="help-block" style="color:red">{{ $message }}</small>
-                            @enderror
+                                <small class="help-block" id="salary_per_hour_e" style="color:red"></small>
                 
                         </div>
                         <div class="col-md-12">
@@ -161,12 +203,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Salary overtime per hour:</label>
-                                <input type="text" class="form-control" name="salary_overtime_per_hour" id="salary_overtime_per_hour"
+                                <input type="text" value="" class="form-control" name="salary_overtime_per_hour" id="salary_overtime_per_hour"
                                     aria-describedby="helpId" placeholder="salary overtime per hour">
                             </div>
-                            @error('salary_overtime_per_hour')
-                                <small class="help-block" style="color:red">{{ $message }}</small>
-                            @enderror
+                        
+                                <small class="help-block" id="salary_overtime_per_hour_e" style="color:red"></small>
+                          
                 
                         </div>
                         <div class="col-md-12">
@@ -176,15 +218,13 @@
                                 <input type="hidden" value="{{ Auth::user()->id }}" class="form-control" name="updated_by" id="updated_by"
                                     aria-describedby="helpId" readonly>
                             </div>
-                            @error('salary_overtime_per_hour')
+                            @error('updated_by')
                                 <small class="help-block" style="color:red">{{ $message }}</small>
                             @enderror
                 
                         </div>
                         
-                        <button class="btn btn-primary">Submit</button>
-                
-                </form>
+                        <button class="btn btn-primary" id="update">Submit</button>
             </div>
         </div>
     </div>

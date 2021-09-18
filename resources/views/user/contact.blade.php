@@ -1,6 +1,8 @@
 @extends('layouts.user')
 
 @section('user')
+<div class="alert2" role="alert2" style="text-align: center">
+</div>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ url('public/user') }}/images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
@@ -48,20 +50,20 @@
           <div class="container">
               <div class="row d-flex align-items-stretch no-gutters">
                   <div class="col-md-6 p-4 p-md-5 order-md-last bg-light">
-                      <form action="#">
+              
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Your Name">
+              <input type="text" class="form-control" id="name" value="{{ $teacher->name }}" disabled="">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Your Email">
+              <input type="text" class="form-control" id="email" value="{{ $teacher->email }}" disabled="">
             </div>
             <div class="form-group">
-              <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+              <textarea name="" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
             </div>
             <div class="form-group">
-              <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+              <input id="submit" value="Send Message" class="btn btn-primary py-3 px-5">
             </div>
-          </form>
+         
                   </div>
                   <div class="col-md-6 d-flex align-items-stretch">
                       <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1809.3417022379451!2d105.84638441521432!3d21.00390237481348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac743a47ec41%3A0xe0dd0b2919d48ce9!2zSOG7jWMgdmnhu4duIENOVFQgQsOhY2ggS2hvYQ!5e0!3m2!1svi!2s!4v1631353997982!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
@@ -70,4 +72,39 @@
           </div>
       </section>
 
+@endsection
+@section('js')
+<script>
+  $(document).ready(function() {
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      $('body').on('click','#submit', function(e) {
+        var email = $('#email').val();
+          var message = $('#message').val();
+          var name = $('#name').val();
+          $.ajax({
+              type: "POST",
+              url: "{{route('home.contact')}}",
+              dataType: 'json',
+              data: {
+                email:email,
+                message: message,
+                name: name,
+              },
+              success: function(response) {
+                 if(response.success){
+                  $(".alert2").addClass("alert-success");
+                  $(".alert2").html(response.success);
+                  setTimeout(function(){  $(".alert-success").hide(); }, 2000);
+                 }
+              }
+          });
+
+      });
+ 
+  });
+</script>
 @endsection
