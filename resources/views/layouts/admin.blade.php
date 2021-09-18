@@ -68,7 +68,7 @@ crossorigin=anonymous></script>
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->name }}</a>
           <ul class="dropdown-menu">
             {{-- <li><a href="">Thông Tin</a></li> --}}
-            <li><a href="" Onclick="return confirm('Are you sure you want to logout')">Thoát tài khoản</a></li>
+            <li><a href="{{ route('logout') }}" Onclick="return confirm('Are you sure you want to logout')">Thoát tài khoản</a></li>
           </ul>
         </li>
       </ul>

@@ -14,6 +14,8 @@
   </section>
 
   <section class="ftco-section bg-light">
+    <div class="alert2" role="alert2" style="text-align: center">
+    </div>
           <div class="container-fluid px-4">
             <div  class="container">
               <div class="row">
@@ -147,7 +149,8 @@
                                                 <button class="btn btn-success toastrDefaultSuccess"
                                                     id="change">change password</button>
                                             </div>
-                                       
+                                       <div class="alert" role="alert">
+                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,10 +184,14 @@
                     },
                     success: function(response) {
                         if(response.error){
-                            alert(response.error);
+                            $(".alert").addClass("alert-danger");
+                            $(".alert").html(response.error);
+                            setTimeout(function(){  $(".alert-danger").hide(); }, 3000);
                         }else if(response.success){
                             $("#modelId").modal('hide');
-                            alert(response.success);
+                            $(".alert2").addClass("alert-success");
+                            $(".alert2").html(response.success);
+                            setTimeout(function(){  $(".alert-success").hide(); }, 2000);
                         }
                     }
                 });

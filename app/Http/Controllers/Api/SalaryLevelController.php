@@ -70,7 +70,7 @@ class SalaryLevelController extends Controller
      */
     public function edit(SalaryLevel $salaryLevel)
     {
-        return view('admin.salaryLevel.edit',compact('salaryLevel'));
+        return view('admin.salary.Level.edit',compact('salaryLevel'));
     }
 
     /**

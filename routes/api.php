@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::get('/', function () {
-//     return view('user.index');
-// }); 
+Route::get('/', function () {
+    return view('user.index');
+}); 
 
 
 Route::group(['middleware' => ['teacher']],function(){
@@ -74,7 +74,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
 
 Route::get('admin/login','Api\AdminController@login')->name('login');
 Route::post('admin/login','Api\AdminController@post_login')->name('login');
-Route::get('admin/logout','AdminController@logout')->name('logout');
+Route::get('admin/logout','API\AdminController@logout')->name('logout');
 
 
 
