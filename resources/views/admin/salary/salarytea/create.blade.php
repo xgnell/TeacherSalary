@@ -93,7 +93,7 @@
                         $('#teacher_id').val(result.id);
 
 
-                        if (response.salary !== null) {
+                        if (response.salary) {
                             $('#submit').hide();
                             $('#message').html("Mức lương của người này đã được thêm")
                             var salary = response.salary;
@@ -101,7 +101,9 @@
                             $('#salary_level').val(salary.salary_level);
                             $('#salary_overtime_per_hour').val(salary.salary_overtime_per_hour);
                             $('#salary_basic').html(salary.basic_salary);
-                        } else {
+                        } else if(!response.salary){
+                            $('#message').hide();
+                            $('#submit').show();
                             $('#salary_level').val(1);
                             $('#salary_basic').html('');
                             $('#salary_per_hour').val('');
