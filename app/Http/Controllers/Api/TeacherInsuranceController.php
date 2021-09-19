@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\Teacher\TeacherExcelExport;
 use App\Http\Controllers\Controller;
 use App\Models\Insurance;
 use App\Models\Teacher;
@@ -90,4 +91,5 @@ class TeacherInsuranceController extends Controller
     {
         // Delete insurance when it is not mandatory
     }
+    
 }

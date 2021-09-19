@@ -65,11 +65,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::post('/history_add','Api\HistorySalaryController@add')->name('history_salary.add');
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
     
-    // kpi
-    // Route::get('/kpi/{id}','Api\KpiController@view')->name('kpi');
-    // Route::get('/kpi/edit/{id}','Api\KpiController@edit')->name('kpi.edit');
-    // Route::post('/kpi/add','Api\KpiController@add')->name('kpi.add');
-    // Route::post('/kpi/update/{id}','Api\KpiController@update')->name('kpi.update');
+    Route::get('/export', 'Api\TeacherController@export')->name('export');
+   
 });
 
 

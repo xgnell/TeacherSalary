@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
+use App\Exports\Teacher\TeacherExcelExport;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\createRequest;
@@ -11,6 +13,8 @@ use App\Models\Salary;
 use App\Models\Major;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class TeacherController extends Controller
 {
@@ -125,6 +129,11 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+    }
+    public function export(){
+    
+        $date = date('Y-m-d');
+        return Excel::download(new TeacherExcelExport(), "Teacher_$date.xlsx");
     }
     
 }
