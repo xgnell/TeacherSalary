@@ -56,9 +56,6 @@
                     <td><img src="{{ url('public/upload') }}/{{ $each->image }}" alt="" style="height: 150px;"></td>
                     <td>{{ $each->created_at }}</td>
                     <td class="text-right">
-                        <a href="{{ route('teacher.show', $each->id) }}" class="btn btn-primary">
-                            <i class="fa fa-eye"></i>
-                        </a>
                         <a href="{{ route('teacher.edit', $each->id) }}" class="btn btn-success">
                             <i class="fa fa-edit"></i>
                         </a>
@@ -77,8 +74,6 @@
         @csrf
         @method('DELETE')
     </form>
-    <form action="" id="filter" method="POST">
-        @csrf
         <hr>
         <div class="paginate">
             {{ $teacher->appends(request()->all())->links() }}
