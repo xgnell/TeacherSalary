@@ -36,7 +36,7 @@ class HistorySalaryController extends Controller
         $major = Major::all();
         $teacher = Teacher::orderBy('created_at', 'ASC')->search()->paginate(5);
         
-        return view('admin.history.create',compact('search','major','teacher'));
+        return view('admin.history_salary.create',compact('search','major','teacher'));
     }
     public function add(Request $request){
         $id = $request->id;
@@ -55,7 +55,7 @@ class HistorySalaryController extends Controller
         $search = $request->get('search');
         $major = Major::all();
         $teacher = Teacher::select('teacher.*','major.name')->join('major', 'major.id', '=', 'teacher.major_id')->where('slug',$slug)->search()->paginate(5);
-        return view('admin.history.create',compact('major','teacher','search'));
+        return view('admin.history_salary.create',compact('major','teacher','search'));
     }
 
     /**

@@ -40,6 +40,13 @@ class Teacher extends Authenticatable
             return $query;
         }
     }
+    public function getGenderNameAttribute(){
+        if($this->gender == 1){
+            return "male";
+        }else{
+            return "female";
+        }
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

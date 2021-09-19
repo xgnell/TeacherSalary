@@ -21,9 +21,21 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('search');
-        $teacher = Teacher::orderBy('created_at','ASC')->search()->paginate(5);
-        return view('admin.teacher.index',compact('search', 'teacher'));
+      
+        if($request->slug){ 
+            $slug = $request->slug;
+            $major = Major::all();
+            $search = $request->get('search');
+            $teacher = Teacher::select('teacher.*', 'major.name as nameMajor')->join('major', 'major.id', '=', 'teacher.major_id')->where('slug',$slug)->search()->paginate(5);
+            return view('admin.teacher.index',compact('search', 'teacher','major','slug'));
+        }else{
+            $major = Major::all();
+            $search = $request->get('search');
+            $teacher = Teacher::orderBy('created_at','ASC')->search()->paginate(5);
+            return view('admin.teacher.index',compact('search', 'teacher','major'));
+        }
+        
+       
     }
 
     /**
