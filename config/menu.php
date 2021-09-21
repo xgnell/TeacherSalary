@@ -45,6 +45,40 @@
             ]
         ],
         [
+            'label' => 'History KPI',
+            'route' => 'history_kpi.index',
+            'icon' => 'fa-tachometer-alt',
+            'items' => [
+                [
+                    'label' => 'All history',
+                    'route' => 'history_kpi.index',
+                    'icon' => 'fa-circle'
+                ],
+                [
+                    'label' => 'Current month',
+                    'route' => 'history_kpi.show_by_month',
+                    'icon' => 'fa-circle'
+                ]
+            ]
+        ],
+        [
+            'label' => 'History Teaching Hours',
+            'route' => 'history_teaching_hours.index',
+            'icon' => 'fa-tachometer-alt',
+            'items' => [
+                [
+                    'label' => 'All history',
+                    'route' => 'history_teaching_hours.index',
+                    'icon' => 'fa-circle'
+                ],
+                [
+                    'label' => 'Current month',
+                    'route' => 'history_teaching_hours.show_by_month',
+                    'icon' => 'fa-circle'
+                ]
+            ]
+        ],
+        [
             'label' => 'Major',
             'route' => 'major.index',
             'icon' => 'fa-tachometer-alt',
@@ -96,6 +130,11 @@
                 [
                     'label' => 'Add Insurance',
                     'route' => 'insurance.create',
+                    'icon' => 'fa-circle',
+                ],
+                [
+                    'label' => 'Use by teachers',
+                    'route' => 'teacher_insurance.index',
                     'icon' => 'fa-circle',
                 ]
             ]

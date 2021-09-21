@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-class HistoryKPIStatus {
+class HistoryTeachingHourStatus {
 	const Unprocess = 0;
 	const Updated = 1;
 	const Edited = 2;
@@ -20,7 +20,7 @@ class HistoryKPIStatus {
 				break;
 		}
 
-		dd("Invalid history kpi status value");
+		dd("Invalid history teaching hour status value");
 		return "";
 	}
 }

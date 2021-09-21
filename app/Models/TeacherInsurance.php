@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TeacherInsurance extends Model
 {
@@ -22,5 +23,16 @@ class TeacherInsurance extends Model
 
     public function insurance() {
         return $this->hasOne(Insurance::class, 'id', 'insurance_id');
+    }
+
+
+    // Lấy ra số danh sách giảng viên chưa sử dụng loại bảo hiểm nào
+    public static function getNotUseInsuranceTeachers() {
+        $teachers = DB::table('teacher')
+                        ->leftJoin('teacher_insurance', 'teacher_insurance.teacher_id', '=', 'teacher.id')
+                        ->where('teacher_id', null)
+                        ->get();
+                        
+        return $teachers;
     }
 }

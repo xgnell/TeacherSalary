@@ -26,9 +26,11 @@
             @foreach ($insurance_by_teacher as $insurances)
                 <tr>
 					@php
+                        // Lấy tên giảng viên
 						$teacher_name = $insurances[0]->teacher->name;
 					@endphp
-                    <td>{{$teacher_name}}</td>
+
+                    <td>{{ $teacher_name }}</td>
                     <td>
 						@foreach ($insurances as $each)
 							<span>{{ $each->insurance->type }}</span>
@@ -48,6 +50,12 @@
             @endforeach
         </tbody>
     </table>
+
+    @if (!$is_used_all)
+		<form action="{{ route('teacher_insurance.create') }}" method="GET">
+			<button class="btn btn-primary" type="submit">Add insurance for other teacher</button>
+		</form>
+	@endif
 
     <form action="" method="POST" id="formdelete">
         @csrf

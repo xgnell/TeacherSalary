@@ -3,12 +3,13 @@
 
 
 @section('main')
-    <label for="">KPI of current month ({{ date("m/Y") }})</label>
+    <label for="">Teaching hours of current month ({{ date("m/Y") }})</label>
     <table class="table table-hover">
         <thead>
             <tr>
 				<th>Teacher</th>
-				<th>KPI Summary Point</th>
+				<th>Total Hours</th>
+				<th>Total Overtime Hours</th>
 				<th>Last Update By</th>
 				<th>Last Update At</th>
 				<th>Status</th>
@@ -17,40 +18,32 @@
         </thead>
         <tbody>
 			<!-- Duyệt qua các giảng viên của từng tháng -->
-			@foreach ($history_kpis as $history_kpi_per_teacher)
+			@foreach ($history_teaching_hours as $teaching_hours_per_teacher)
 				<tr>
 					@php
 						// Lấy ra tên giảng viên một tháng
-						$teacher_name = $history_kpi_per_teacher[0]->teacher->name ?? "";
+						$teacher_name = $teaching_hours_per_teacher->teacher->name ?? "";
 
 						// Lấy ra admin chỉnh sửa lần cuối
-						$updated_admin = $history_kpi_per_teacher[0]->updated_admin->name ?? "";
+						$updated_admin = $teaching_hours_per_teacher->updated_admin->name ?? "";
 
 						// Lấy ra thời gian chỉnh sửa lần cuối
-						$updated_at = $history_kpi_per_teacher[0]->updated_at ?? "";
+						$updated_at = $teaching_hours_per_teacher->updated_at ?? "";
 
 						// Lấy ra trạng thái
-						$status = $history_kpi_per_teacher[0]->status ?? "";
-
-						// Tính tổng điểm KPI của tháng
-						$summary_point = 0;
-						foreach ($history_kpi_per_teacher as $kpi) {
-							$summary_point += $kpi->point;
-						}
+						$status = $teaching_hours_per_teacher->status ?? "";
 					@endphp
 
 					<td>{{ $teacher_name }}</td>
-					<td>{{ $summary_point }}</td>
+					<td>{{ $teaching_hours_per_teacher->total_hours }}</td>
+					<td>{{ $teaching_hours_per_teacher->total_overtime_hours }}</td>
 					<td>{{ $updated_admin }}</td>
 					<td>{{ $updated_at }}</td>
-					<td>{{ $HistoryKpiStatus::getName($status) }}</td>
+					<td>{{ $TeachingHourStatus::getName($status) }}</td>
 						
 					<!-- Chức năng tương ứng -->
 					<td class="text-right">
-						<a href="">
-							Detail KPI points
-						</a>
-						<a href="{{ route('history_kpi.edit', $history_kpi_per_teacher[0]->teacher_id) }}" class="btn btn-success">
+						<a href="{{ route('history_teaching_hours.edit', $teaching_hours_per_teacher->teacher_id) }}" class="btn btn-success">
 							<i class="fa fa-edit"></i>
 						</a>
 						{{-- <a href="{{ route('kpi.destroy',$each->id) }}" class="btn btn-danger btndelete">
@@ -63,9 +56,9 @@
     </table>
 
 	@if (!$is_updated_all)
-		<form action="{{ route('history_kpi.create') }}" method="GET">
+		<form action="{{ route('history_teaching_hours.create') }}" method="GET">
 			@csrf
-			<button class="btn btn-primary" type="submit">Update kpi for other teacher</button>
+			<button class="btn btn-primary" type="submit">Update teaching hours for other teacher</button>
 		</form>
 	@endif
 
