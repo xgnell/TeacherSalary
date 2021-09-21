@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 class HistoryTeachingHours extends Model
 {
     use HasFactory;
-
+    public $incrementing = false;
     protected $table = 'history_teaching_hours';
-
+    protected $primaryKey = ['teacher_id','time'];
     protected $fillable = [
         'time',
         'teacher_id',

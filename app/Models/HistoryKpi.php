@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 class HistoryKpi extends Model
 {
     use HasFactory;
-
+    public $incrementing = false;
     protected $table = 'history_kpi';
-
+    protected $primaryKey = ['teacher_id','time'];
     protected $fillable = [
         'time',
         'teacher_id',
@@ -26,14 +26,12 @@ class HistoryKpi extends Model
         return $this->hasOne(Teacher::class, 'id', 'teacher_id');
     }
 
-    public function criteria() {
-        return $this->hasOne(Kpi::class, 'id', 'criteria_id');
-    }
-
     public function updated_admin() {
         return $this->hasOne(Admin::class, 'id', 'updated_by');
     }
-
+    public function kpi() {
+        return $this->hasOne(Kpi::class, 'id', 'criteria_id');
+    }
 
 
 

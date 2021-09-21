@@ -31,7 +31,16 @@ class Teacher extends Authenticatable
         return $this->hasOne(Major::class,'id','major_id');
     }
     public function salary(){
-        return $this->hasOne(Salary::class,'id','salary_id');
+        return $this->hasOne(Salary::class,'teacher_id','id');
+    }
+    public function history_teaching_hours(){
+        return $this->hasOne(HistoryTeachingHours::class,'teacher_id','id');
+    }
+    public function history_salary(){
+        return $this->hasOne(HistorySalary::class,'teacher_id','id');
+    }
+    public function history_kpi(){
+        return $this->hasMany(HistoryKpi::class,'teacher_id','id');
     }
 
     public function scopeSearch($query){

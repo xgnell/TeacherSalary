@@ -136,6 +136,11 @@
                     'label' => 'Use by teachers',
                     'route' => 'teacher_insurance.index',
                     'icon' => 'fa-circle',
+                ],
+                [
+                    'label' => 'Add peroid',
+                    'route' => 'insurance_period.index',
+                    'icon' => 'fa-circle',
                 ]
             ]
         ],

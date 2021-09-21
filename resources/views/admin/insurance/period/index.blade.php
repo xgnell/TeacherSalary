@@ -12,7 +12,8 @@
     </form>
 
     <hr>
-
+    <a href="{{ route('insurance_period.create') }}" class="btn btn-primary">Add peroid</a>
+    <br>
     <label for="">List Insurance Periods</label>
     <table class="table table-hover">
         <thead>

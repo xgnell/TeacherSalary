@@ -28,4 +28,11 @@ class Insurance extends Model
             return $query;
         }
     }
+    public function getNameMandatoryAttribute(){
+        if($this->mandatory == 0){
+            return "không bắt buộc";
+        }else{
+            return "bắt buộc";
+        }
+    }
 }

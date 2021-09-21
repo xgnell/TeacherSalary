@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class HistorySalary extends Model
 {
     use HasFactory;
-
+    public $incrementing = false;
     protected $table = 'history_salary';
-    public $timestamps = false;
     protected $primaryKey = ['teacher_id','time'];
-    protected $fillable =['teacher_id','time','total_salary','total_teaching_hours','total_ot_hours','status','created_by','bhxh'];
+    protected $fillable =['teacher_id','time','basic_salary','salary_per_hour','salary_overtime_per_hour','total_insurance','total_salary','status'];
     public function teacher(){
         return $this->hasOne(Teacher::class,'id','teacher_id');
     }

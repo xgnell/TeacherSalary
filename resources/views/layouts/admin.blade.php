@@ -21,6 +21,8 @@ crossorigin=anonymous></script>
     <link rel="stylesheet" href="{{ asset('public/ad/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('public/ad/dist/css/adminlte.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/ad/chart/highchart.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->

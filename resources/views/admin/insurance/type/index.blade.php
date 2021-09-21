@@ -30,7 +30,7 @@
                     <td>{{$each->type}}</td>
                     <td>{{$each->value}}</td>
                     <td>{{$each->period_id}}</td>
-                    <td>{{$each->mandatory}}</td>
+                    <td>{{$each->NameMandatory}}</td>
                     <td class="text-right">
                         <a href="{{ route('insurance.edit',$each->id) }}" class="btn btn-success">
                             <i class="fa fa-edit"></i>
