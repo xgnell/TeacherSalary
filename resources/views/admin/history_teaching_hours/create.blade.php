@@ -3,9 +3,9 @@
 
 
 @section('main')
-    <h2>Update KPI Table</h2>
+    <h2>Update Teching Hours</h2>
 
-    <form action="{{ route('history_kpi.store') }}" method="POST">
+    <form action="{{ route('history_teaching_hours.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
@@ -20,21 +20,25 @@
         <br>
         
         <div class="form-group">
-            @foreach ($kpi_criterias as $criteria)
-                <div>
-                    <label for="criteria_{{ $criteria->id }}">Criteria {{ $criteria->criteria }}</label>
-                    <input class="form-control" type="text"
-                        name="criteria_{{ $criteria->id }}"
-                        id="criteria_{{ $criteria->id }}"
-                    >
-                </div>
-            @endforeach
+			<label for="total_hours">Total hours</label>
+			<input class="form-control" type="text"
+				name="total_hours"
+				id="total_hours"
+				placeholder="Total teaching hours"
+			>
+        </div>
+
+		<div class="form-group">
+			<label for="total_overtime_hours">Total overtime hours</label>
+			<input class="form-control" type="text"
+				name="total_overtime_hours"
+				id="total_overtime_hours"
+				placeholder="Total overtime teaching hours"
+			>
         </div>
 
         <button type="submit" class="btn btn-primary">Update</button>
     
-    
     </form>
-
 
 @endsection

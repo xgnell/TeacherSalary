@@ -36,14 +36,23 @@ Route::group(['middleware' => ['teacher']],function(){
 Route::get('/home-login','Api\HomeController@login')->name('home.login');
 Route::post('/home-login','Api\HomeController@post_login')->name('home.login');
 Route::get('/home-logout','Api\HomeController@logout')->name('home.logout');
-// 
+
+Route::get('/history_kpi/show_by_month', 'Api\HistoryKpiController@show_by_month')->name('history_kpi.show_by_month');
+Route::resource('history_kpi', 'Api\HistoryKpiController')->except([
+    'show',
+]);
+
+Route::get('/history_teaching_hours/show_by_month', 'Api\HistoryTeachingHoursController@show_by_month')->name('history_teaching_hours.show_by_month');
+Route::resource('history_teaching_hours', 'Api\HistoryTeachingHoursController')->except([
+    'show',
+]);
+
 Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/','Api\AdminController@dashboard')->name('admin.dashboard');
     Route::get('/file','Api\AdminController@file')->name('admin.file');
     Route::resources([
         'teacher'=>'Api\TeacherController',
         'kpi'=>'Api\KpiController',
-        'history_kpi' => 'Api\HistoryKpiController',
         'major'=>'Api\MajorController',
         'account'=> 'Api\AccountController',
         'admin'=>'Api\UserController',
@@ -53,6 +62,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
         'salary'=>'Api\SalaryController',
         'salary_level'=>'Api\SalaryLevelController',
     ]);
+    
+
     Route::post('/salary_create','Api\SalaryController@add')->name('salary.add');
     Route::get('/salary_filter/{slug}','Api\SalaryController@filter')->name('salary.filter');
     Route::post('/salary_edit','Api\SalaryController@editt')->name('salary.editt');
@@ -66,9 +77,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
     
     Route::get('/export', 'Api\TeacherController@export')->name('export');
-   
 });
-
 
 Route::get('admin/login','Api\AdminController@login')->name('login');
 Route::post('admin/login','Api\AdminController@post_login')->name('login');

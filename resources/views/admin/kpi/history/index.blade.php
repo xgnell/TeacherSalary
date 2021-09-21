@@ -74,14 +74,15 @@
 								<td>{{ $HistoryKpiStatus::getName($status) }}</td>
 									
 								<!-- Chức năng tương ứng -->
+								
 								<td class="text-right">
 									<a href="">
 										Detail KPI points
 									</a>
-									{{-- <a href="{{ route('history_kpi.edit',$history_kpi_by_teacher[0]->teacher_id) }}" class="btn btn-success">
+									{{-- <a href="{{ route('history_kpi.edit', $history_kpi_per_teacher[0]->teacher_id) }}" class="btn btn-success">
 										<i class="fa fa-edit"></i>
-									</a>
-									<a href="{{ route('kpi.destroy',$each->id) }}" class="btn btn-danger btndelete">
+									</a> --}}
+									{{-- <a href="{{ route('kpi.destroy',$each->id) }}" class="btn btn-danger btndelete">
 										<i class="fa fa-trash"></i>
 									</a> --}}
 								</td>
@@ -89,6 +90,7 @@
 						@endforeach
 					</table>
 				</td>
+				
             </tr>
         @endforeach
 

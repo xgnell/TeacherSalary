@@ -17,13 +17,14 @@ class CreateHistoryTeachingHours extends Migration
             $table->date('time');
             $table->unsignedInteger('teacher_id');
 
-            $table->integer('total_hours');
-            $table->integer('total_overtime_hours');
+            $table->double('total_hours');
+            $table->double('total_overtime_hours');
             
             $table->integer('status');
             $table->unsignedInteger('updated_by');
 
             $table->primary(['time', 'teacher_id']);
+            $table->foreign('teacher_id')->references('id')->on('teacher');
             $table->foreign('updated_by')->references('id')->on('admin');
             $table->timestamps();
         });
