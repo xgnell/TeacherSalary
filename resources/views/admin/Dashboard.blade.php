@@ -10,14 +10,14 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{$tong_so_giang_vien}}</h3>
 
-                        <p>New Orders</p>
+                        <p>Teacher</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('teacher.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -25,9 +25,9 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>53<sup style="font-size: 20px"></sup></h3>
 
-                        <p>Bounce Rate</p>
+                        <p>History Salary of month</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -40,14 +40,14 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3>2</h3>
 
-                        <p>User Registrations</p>
+                        <p>List Insurance</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('insurance.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -55,9 +55,9 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>2</h3>
 
-                        <p>Unique Visitors</p>
+                        <p>List teacher highest score KPI of month</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
@@ -76,13 +76,17 @@
 
 @endsection
 @section('js')
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 @php
-  $array_month = json_encode($array_month);
+  $array = json_encode($array);
   $paymented = json_encode($paymented);
   $unpayment = json_encode($unpayment);
 @endphp
     <script>
-    var array_month = {!! $array_month !!}
+    var array = {!! $array !!}
     var paymented = {!! $paymented !!}
     var unpayment = {!! $unpayment !!}
        Highcharts.chart('container', {
@@ -93,7 +97,7 @@
         text: 'chart payroll'
     },
     xAxis: {
-        categories: array_month,
+        categories: array,
     },
     yAxis: {
         min: 0,
@@ -140,7 +144,7 @@
         data: paymented
     },  {
         name: 'Số giang viên chưa trả',
-        data: [0,0,0,0]
+        data: unpayment
     }]
 });
     </script>

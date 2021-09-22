@@ -22,7 +22,7 @@ class HistoryKpiController extends Controller
     {
         $search = $request->get('search');
         $history_kpis = HistoryKpi::all()->groupBy(['time', 'teacher_id']);
-
+        // dd($history_kpis);
         $HistoryKpiStatus = HistoryKPIStatus::class;
         return view('admin.kpi.history.index',compact('search','history_kpis', 'HistoryKpiStatus'));
     }

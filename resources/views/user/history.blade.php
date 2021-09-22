@@ -35,8 +35,9 @@
                     </thead>
                     @if ($HistorySalary !== null)
                     <tbody>
+                        @foreach ($HistorySalary as $item)
                         <tr>
-                            @foreach ($HistorySalary as $item)
+                            
                                 <td>{{$item->time}}</td>
                                 <td>{{$item->teacher->name}}</td>
                                 <td>{{$item->teacher->history_teaching_hours->total_hours}}</td>
@@ -59,10 +60,10 @@
                                         <i class="fa fa-edit">Detail</i>
                                     </button>
                                 </td>
-                            @endforeach
+                           
 
                         </tr>
-
+                    @endforeach
 
 
                     </tbody>

@@ -8,27 +8,51 @@ use App\Models\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function dashboard(){
-        $history_salary = HistorySalary::orderBy('time','ASC')->get();
-        $salary_month = array();
-        foreach($history_salary as $each) {
-            $month = Carbon::parse($each->time)->month;
-            $array_month = array($month);
-            // dd($array_month);
-        }
-        $payment = HistorySalary::where('status', 1)->whereMonth('time', $month)->get();
+        $history_salarys = Teacher::
+        join('history_salary','history_salary.teacher_id','=','teacher.id')
+        ->select(DB::raw('DISTINCT(history_salary.time),count(history_salary.teacher_id)'))
+        ->groupBy(['history_salary.time','history_salary.teacher_id'])
+        ->get(); 
+        // dd($history_salarys);
         $so_nguoi_da_tra =0;
-        foreach($payment as $each) {
-            $so_nguoi_da_tra += $each->teacher_id;
-            $paymented = [$so_nguoi_da_tra];
-        }
+        $so_nguoi_chua_tra =0;
+        $array = array();
+        $paymented = array();
+        $unpayment = array();
+        foreach($history_salarys as $history_salary) { 
+            $month = Carbon::parse($history_salary->time ?? "")->month;
+            $year = Carbon::parse($history_salary->time ?? "")->year;
+            $time =$year.'-'.$month;
+            array_push($array,$time);
+         
+        $payment = Teacher::join('history_salary','history_salary.teacher_id','=','teacher.id')
+            ->where('history_salary.status', 1)
+            ->whereMonth('history_salary.time','=', $month)
+            ->whereYear('history_salary.time','=', $year)
+            ->get();
+            $so_nguoi_da_tra = $payment->count();
+            array_push($paymented,$so_nguoi_da_tra);
+
+        $unpayments = DB::table('teacher')                 
+        ->select('teacher.id')
+        ->whereNotIn('teacher.id', DB::table('history_salary')
+        ->select('history_salary.teacher_id')
+        ->whereMonth('history_salary.time','=', $month)
+        ->whereYear('history_salary.time','=', $year))
+        ->get();
         $teacher = Teacher::all();
         $tong_so_giang_vien = $teacher->count();
-        $unpayment = $tong_so_giang_vien - $so_nguoi_da_tra;
-        return view('admin.Dashboard',compact('array_month','paymented','unpayment'));
+
+            $so_nguoi_chua_tra = $unpayments->count();
+            array_push($unpayment,$so_nguoi_chua_tra);
+        }
+        // dd($array);
+        return view('admin.Dashboard',compact('array','unpayment','paymented','tong_so_giang_vien'));
     }
     public function login(){
         return view('admin.admin.login');
