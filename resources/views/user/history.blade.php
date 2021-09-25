@@ -56,7 +56,7 @@
                                @endphp
                                 <td>{{ $summary_point }}
                                     <br>
-                                    <button id="detail" data-id="{{ $item->teacher_id }}"class="btn btn-danger" data-toggle="modal" data-target="#modelId">
+                                    <button id="detail" data-id="{{ $item->teacher_id }}" class="btn btn-danger" data-toggle="modal" data-target="#modelId">
                                         <i class="fa fa-edit">Detail</i>
                                     </button>
                                 </td>

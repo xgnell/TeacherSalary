@@ -29,7 +29,7 @@ class createRequest extends FormRequest
             'birthday'=>'required',
             'gender'=>'required',
             'address'=>'required|max:255|min:1',
-            'phone'=>'required|min:10|max:13', 
+            'phone'=>'required|min:10|max:13|unique:teacher,phone', 
         ];
     }
 }

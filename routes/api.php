@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
     
     Route::get('/export', 'Api\TeacherController@export')->name('export');
+    Route::get('/kpi_highest', 'Api\AdminController@kpi_highest')->name('admin.highest');
 });
 
 Route::get('admin/login','Api\AdminController@login')->name('login');

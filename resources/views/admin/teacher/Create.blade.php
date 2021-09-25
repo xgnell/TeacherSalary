@@ -35,7 +35,7 @@
             <label for="">Phone: </label>
             <input type="text"
               class="form-control" name="phone" id="phone" aria-describedby="helpId" placeholder="phone">
-            @error('last_name')
+            @error('phone')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
           </div>

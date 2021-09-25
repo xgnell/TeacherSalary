@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateRequest extends FormRequest
 {
@@ -30,6 +31,11 @@ class updateRequest extends FormRequest
             'address'=>'required|max:255|min:1',
             'phone'=>'required|min:8|max:13',
             'status'=>'required',
+            'phone'=>[
+                'required',
+                'max:50',
+                Rule::unique('teacher','phone')->ignore($this->phone),
+            ],
         ];
     }
 }
