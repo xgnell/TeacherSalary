@@ -21,6 +21,7 @@ class CreateHistorySalary extends Migration
             $table->double('salary_per_hour');
             $table->double('salary_overtime_per_hour');
             $table->double('total_insurance');  // Tổng % của tất cả loại bảo hiểm
+            $table->double('total_kpi');
             $table->double('total_salary');
 
             $table->integer('status');

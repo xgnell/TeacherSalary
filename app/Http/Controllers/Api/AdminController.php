@@ -29,6 +29,8 @@ class AdminController extends Controller
         $unpayment = array();
         $unpaymentss = array();
         
+        $tong_so_giang_vien = null;
+        $unpayments = null;
         foreach($history_salarys as $history_salary) { 
             $month = Carbon::parse($history_salary->time ?? "")->month;
             $year = Carbon::parse($history_salary->time ?? "")->year;

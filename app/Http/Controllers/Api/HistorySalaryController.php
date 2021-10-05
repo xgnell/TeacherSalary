@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Constants\HistorySalaryStatus;
 use App\Http\Controllers\Controller;
 use App\Models\HistorySalary;
 use App\Models\Major;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-use App\Models\BHXH;
 use App\Models\Kpi;
-
+use Illuminate\Support\Facades\DB;
 
 class HistorySalaryController extends Controller
 {
@@ -18,11 +18,12 @@ class HistorySalaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = HistorySalary::orderBy('time', 'ASC')->get();
-        dd($history);
-        
+        $search = $request->get('search');
+        $history_salaries = HistorySalary::all()->groupBy('time');
+        $HistorySalaryStatus = HistorySalaryStatus::class;
+        return view('admin.history_salary.index', compact('search', 'history_salaries', 'HistorySalaryStatus'));
     }
 
     /**
@@ -76,5 +77,19 @@ class HistorySalaryController extends Controller
         }
     }
 
-    
+    public function show_by_month()
+    {
+        // Lấy ra thời gian hiện tại
+        $current_time = date('Y-m-01');
+
+        // Lấy ra danh sách giảng viên
+        $updated_history_salaries = HistorySalary::where('time', $current_time);
+        $teachers = DB::table('teacher')
+                        ->leftJoinSub($updated_history_salaries, 'updated_teachers', function($join) {
+                            $join->on('teacher.id', '=', 'updated_teachers.id');
+                        })
+                        ->get();
+
+        return view('admin.history_salary.show', compact('teachers'));
+    }
 }
