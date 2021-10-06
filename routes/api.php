@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
     Route::get('/history_filter/{slug}','Api\HistorySalaryController@filter')->name('history_salary.filter');
     Route::post('/history_add','Api\HistorySalaryController@add')->name('history_salary.add');
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
+    Route::get('/history_salary/show_by_month', 'Api\HistorySalaryController@show_by_month')->name('history_salary.show_by_month');
     
     Route::get('/export', 'Api\TeacherController@export')->name('export');
     Route::get('/kpi_highest', 'Api\AdminController@kpi_highest')->name('admin.highest');

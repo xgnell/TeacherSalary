@@ -18,7 +18,17 @@
         </div>
         
         <br>
-        
+        <div class="form-group">
+			<label for="total_hours">Time</label>
+			<input class="form-control" type="date"
+				name="time"
+				id="time"
+				placeholder=""
+			>
+        </div>
+        @error('time')
+                <small class="help-block" style="color:red">{{$message}}</small>
+            @enderror
         <div class="form-group">
 			<label for="total_hours">Total hours</label>
 			<input class="form-control" type="text"
@@ -27,7 +37,9 @@
 				placeholder="Total teaching hours"
 			>
         </div>
-
+        @error('total_hours')
+        <small class="help-block" style="color:red">{{$message}}</small>
+    @enderror
 		<div class="form-group">
 			<label for="total_overtime_hours">Total overtime hours</label>
 			<input class="form-control" type="text"
@@ -36,6 +48,9 @@
 				placeholder="Total overtime teaching hours"
 			>
         </div>
+        @error('total_overtime_hours')
+                <small class="help-block" style="color:red">{{$message}}</small>
+            @enderror
 
         <button type="submit" class="btn btn-primary">Update</button>
     

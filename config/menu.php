@@ -7,8 +7,20 @@
         ],
         [
             'label' => 'PayRoll',
-            'route' => 'history_salary.create',
-            'icon' => 'fa-tachometer-alt'
+            'route' => 'history_salary.index',
+            'icon' => 'fa-tachometer-alt',
+            'items' => [
+                [
+                    'label' => 'All history',
+                    'route' => 'history_salary.index',
+                    'icon' => 'fa-circle'
+                ],
+                [
+                    'label' => 'Current month',
+                    'route' => 'history_salary.show_by_month',
+                    'icon' => 'fa-circle'
+                ]
+            ]
         ],
         [
             'label' => 'Teachers',

@@ -89,7 +89,7 @@ class HistorySalaryController extends Controller
                             $join->on('teacher.id', '=', 'updated_teachers.id');
                         })
                         ->get();
-
+                        dd($teachers);
         return view('admin.history_salary.show', compact('teachers'));
     }
 }

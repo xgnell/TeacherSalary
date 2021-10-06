@@ -1,7 +1,31 @@
 @extends('layouts.admin')
 
 
+@section('css')
+    <style type="text/css">
+        .infoo {
+            display: none;
+        }
+		.infoo.active {
+            display: block;
+        }
+        button.btn.btn-primary {
+            border-radius: 17px;
+            width: 100px;
+            font-size: 16px;
+            font-family: emoji;
+            color: blueviolet;
+            background: coral;
+            font-weight: bold;
+        }
 
+        button.btn.btn-primary:hover {
+            background: bisque;
+            color: brown;
+        }
+
+    </style>
+@endsection
 @section('main')
 	<form class="form-inline">
 		<div class="form-group">
@@ -18,7 +42,9 @@
         <thead>
             <tr>
 				<th>Time</th>
+				<th>view</th>
                 <th class="text-center">History</th>
+				
             </tr>
         </thead>
         <tbody>
@@ -32,8 +58,9 @@
 
 
                 <td>{{ (new Datetime($kpi_timeline))->format("Y/m") }}</td>
-
+				<td><button class="btn btn-primary show">View</button></td>
 				<td>
+					<div class="infoo">
 					<table class="col-md-12">
 						<tr>
 							<th>Teacher</th>
@@ -89,6 +116,7 @@
 							</tr>
 						@endforeach
 					</table>
+					</div>
 				</td>
 				
             </tr>
@@ -115,6 +143,12 @@
 
 @section('js')
     <script>
+		var btn = document.querySelector('.show')
+            var info = document.querySelector('.infoo');
+			btn.onclick = function() {
+				info.classList.toggle('active')
+			}
+
         $('.btndelete').click(function(event){
             event.preventDefault();
             var _href = $(this).attr('href');
