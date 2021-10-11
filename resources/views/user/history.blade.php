@@ -1,5 +1,8 @@
 @extends('layouts.user')
-
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
+@endsection
 @section('user')
     <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ url('public/user') }}/images/bg_1.jpg');">
         <div class="overlay"></div>
@@ -19,7 +22,7 @@
         <div class="card-content">
             <h4 class="card-title"> Salary new</h4>
             <div class="table-responsive">
-                <table class="table" id="table_id" style="border: 1px solid; text-align: center;">
+                <table class="table" id="example" class="display" style="border: 1px solid; text-align: center;">
                     <thead>
                         <tr>
                             <th class="text-center">Time</th>
@@ -81,6 +84,8 @@
     </section>
 @endsection
 @section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $.ajaxSetup({
@@ -88,6 +93,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
         $('body').on('click','#detail', function(e) {
            var teacher_id = $(this).data('id');
             $.ajax({

@@ -1,10 +1,14 @@
 @extends('layouts.admin')
 
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
+@endsection
 
 
 @section('main')
     <label for="">Teaching hours of current month ({{ date("m/Y") }})</label>
-    <table class="table table-hover">
+    <table class="table table-hover" id="example" class="display">
         <thead>
             <tr>
 				<th>Teacher</th>
@@ -78,7 +82,14 @@
 
 
 @section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
     <script>
+		 $(document).ready(function() {
+                $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
+            });
         $('.btndelete').click(function(event){
             event.preventDefault();
             var _href = $(this).attr('href');

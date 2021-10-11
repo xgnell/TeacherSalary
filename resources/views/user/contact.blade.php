@@ -61,7 +61,7 @@
               <textarea name="" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
             </div>
             <div class="form-group">
-              <input id="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+              <button id="submit" class="btn btn-primary py-3 px-5">Send</button>
             </div>
          
                   </div>
@@ -90,6 +90,7 @@
               url: "{{route('home.contact')}}",
               dataType: 'json',
               data: {
+                status: 2,
                 email:email,
                 message: message,
                 name: name,

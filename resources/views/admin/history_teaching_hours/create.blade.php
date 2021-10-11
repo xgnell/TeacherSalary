@@ -19,17 +19,6 @@
         
         <br>
         <div class="form-group">
-			<label for="total_hours">Time</label>
-			<input class="form-control" type="date"
-				name="time"
-				id="time"
-				placeholder=""
-			>
-        </div>
-        @error('time')
-                <small class="help-block" style="color:red">{{$message}}</small>
-            @enderror
-        <div class="form-group">
 			<label for="total_hours">Total hours</label>
 			<input class="form-control" type="text"
 				name="total_hours"

@@ -60,7 +60,7 @@ class HistoryTeachingHoursController extends Controller
         $total_hours['time'] = $current_time;
         $total_hours['updated_by'] = $admin_id;
         $total_hours['status'] = 1;
-
+ 
         if (HistoryTeachingHours::create($total_hours)) {
             return redirect()->route('history_teaching_hours.show_by_month')->with('success','Add success!');
         } else {

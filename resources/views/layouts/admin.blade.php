@@ -22,6 +22,7 @@ crossorigin=anonymous></script>
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('public/ad/dist/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('public/ad/chart/highchart.css') }}">
+    <script src="{{ asset('public/ad/plugins/jquery/jquery.min.js') }}"></script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -232,7 +233,6 @@ crossorigin=anonymous></script>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('public/ad/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('public/ad/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- overlayScrollbars -->

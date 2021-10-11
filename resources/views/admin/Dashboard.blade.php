@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('css')
     <script src="{{ asset('public/ad/chart/highcharts.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
 @endsection
 @section('main')
@@ -76,10 +77,11 @@
     </section>
     <section>
         <div>giảng viên chưa được thanh toán</div>
-        <table class="table table-hover" id="table1">
+        <table class="table table-hover" id="example" class="display">
             <thead>
                 <tr>
                     <th>time</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -104,7 +106,7 @@
                                     <td>{{ $each->email }}</td>
                                     <td>{{ $each->major_id }}</td>
                                     <th>
-                                        <a href="">Add salary</a>
+                                        <a href="{{ route('history_teaching_hours.show_by_month') }}">Add salary</a>
                                     </th>
                                 </tr>
                             @endforeach
@@ -122,6 +124,8 @@
 
 @endsection
 @section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -131,6 +135,11 @@
     $unpayment = json_encode($unpayment);
     @endphp
     <script>
+        $(document).ready(function() {
+                $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
+            });
         var array = {!! $array !!}
         var paymented = {!! $paymented !!}
         var unpayment = {!! $unpayment !!}

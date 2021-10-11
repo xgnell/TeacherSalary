@@ -1,32 +1,15 @@
 @extends('layouts.admin')
-
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
+@endsection
 @section('main')
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Choose Major
-        </button>
-        <div class="dropdown-menu" aria-labelledby="triggerId">
-            @foreach ($major as $item)
-                <a class="dropdown-item" id="chose"
-                    href="{{ route('teacher.index', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
-            @endforeach
-
-        </div>
-    </div>
-   
-        <a href="{{ route('export')}}" id="export_excel" onclick="return confirm('Are you sure you want to export')" >Export list teacher Excel</a>
-    <form class="form-inline">
-        <div class="form-group">
-            <label for=""></label>
-            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="search..."
-                aria-describedby="helpId">
-            <button class="btn-primary"><i class="fa fa-search"></i></button>
-        </div>
-    </form>
+  
+    <a href="{{ route('export') }}" id="export_excel" onclick="return confirm('Are you sure you want to export')">Export
+        list teacher Excel</a>
     <hr>
-    <label for="">List Categories</label>
-    <table class="table table-hover">
+    <label for="">List teacher</label>
+    <table class="table table-hover" id="example" class="display">
         <thead>
             <tr>
                 <th>ID</th>
@@ -53,7 +36,7 @@
                         @endif
                     </td>
                     <td>{{ $each->major->name }}</td>
-                    <td><img src="{{ url('public/upload') }}/{{ $each->image }}" alt="" style="height: 150px;"></td>
+                    <td><img src="{{ url('public/upload') }}/{{ $each->image }}" alt="" style="height: 100px;"></td>
                     <td>{{ $each->created_at }}</td>
                     <td class="text-right">
                         <a href="{{ route('teacher.edit', $each->id) }}" class="btn btn-success">
@@ -74,34 +57,37 @@
         @csrf
         @method('DELETE')
     </form>
-        <hr>
-        <div class="paginate">
-            {{ $teacher->appends(request()->all())->links() }}
-        </div>
 
-    @endsection
 
-    @section('js')
-        <script>
-            $(document).ready(function() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $('.btndelete').click(function(event) {
-                    event.preventDefault();
-                    var _href = $(this).attr('href');
-                    $('form#formdelete').attr('action', _href);
-                    if (confirm('Are you sure you want to delete')) {
-                        $('form#formdelete').submit();
-                    }
-                });
+@endsection
 
-               
+@section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-        </script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
+            });
+            $('.btndelete').click(function(event) {
+                event.preventDefault();
+                var _href = $(this).attr('href');
+                $('form#formdelete').attr('action', _href);
+                if (confirm('Are you sure you want to delete')) {
+                    $('form#formdelete').submit();
+                }
+            });
+
+
+        });
+    </script>
 
 
 
-    @endsection
+@endsection

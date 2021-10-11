@@ -58,9 +58,9 @@
                         </td>
     
                         <td class="td-actions text-right">
-                            <button rel="tooltip" class="btn btn-success" data-original-title="" title="">
+                            {{-- <button rel="tooltip" class="btn btn-success" data-original-title="" title="">
                                 <i class="material-icons">confirm</i>
-                            </button>
+                            </button> --}}
                             <a href="{{ route('contact')}}" rel="tooltip" class="btn btn-info" data-original-title="" title="">
                                 <i class="material-icons">Feedback</i>
                             </a>

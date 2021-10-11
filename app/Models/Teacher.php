@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends Authenticatable
@@ -55,6 +57,21 @@ class Teacher extends Authenticatable
         }else{
             return "female";
         }
+    }
+
+    public static function getUnupdatedHistorySalary($time) {
+        $formated_time = (new DateTime($time))->format("Y-m-01");
+
+        $updated_history_salaries = DB::table('history_salary')
+                            ->where('time', $formated_time);
+
+        $unupdated_history_salaries = DB::table('teacher')
+                            ->leftJoinSub($updated_history_salaries, 'updated_teacher', function($join) {
+                                $join->on('teacher.id', '=', 'updated_teacher.teacher_id');
+                            })
+                            ->where('teacher_id', null);
+
+        return $unupdated_history_salaries;
     }
     /**
      * The attributes that should be hidden for serialization.

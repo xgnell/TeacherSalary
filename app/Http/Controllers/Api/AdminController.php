@@ -37,7 +37,7 @@ class AdminController extends Controller
             $time = $year.'-'.$month;
             array_push($array,$time);
         $payment = Teacher::join('history_salary','history_salary.teacher_id','=','teacher.id')
-            ->where('history_salary.status', 1)
+            ->where('history_salary.status', 4)
             ->whereMonth('history_salary.time','=', $month)
             ->whereYear('history_salary.time','=', $year)
             ->get();
@@ -58,6 +58,7 @@ class AdminController extends Controller
             $so_nguoi_chua_tra = $unpayments->count();
             array_push($unpayment,$so_nguoi_chua_tra);
         }
+            // dd($paymented);
     //   dd($unpaymentss);
         return view('admin.Dashboard',compact(
             'array',

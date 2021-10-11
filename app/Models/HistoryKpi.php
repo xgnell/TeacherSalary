@@ -49,7 +49,7 @@ class HistoryKpi extends Model
 
         $updated_kpis_query = DB::table('history_kpi')
                             ->where('time', $formated_time);
-
+      
         $unupdated_kpis_query = DB::table('teacher')
                             ->leftJoinSub($updated_kpis_query, 'updated_teacher', function($join) {
                                 $join->on('teacher.id', '=', 'updated_teacher.teacher_id');

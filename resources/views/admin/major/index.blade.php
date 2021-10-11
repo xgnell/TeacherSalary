@@ -1,17 +1,13 @@
 @extends('layouts.admin')
-
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
+@endsection
 @section('main')
 
-<form class="form-inline">
-    <div class="form-group">
-        <label for=""></label>
-        <input type="text" name="search" value="{{$search}}" class="form-control" placeholder="search..." aria-describedby="helpId">
-        <button class="btn-primary"><i class="fa fa-search"></i></button>
-    </div>
-</form>
 <hr>
-<label for="">List Categories</label>
-<table class="table table-hover">
+<label for="">List Major</label>
+<table class="table table-hover" id="example" class="display">
     <thead>
         <tr>
         <th>ID</th>
@@ -53,7 +49,14 @@
 @endsection
 
 @section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
     <script>
+        $(document).ready(function() {
+                $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
+            });
         $('.btndelete').click(function(event){
             event.preventDefault();
             var _href = $(this).attr('href');

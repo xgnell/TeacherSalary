@@ -11,6 +11,7 @@ use App\Models\Major;
 use App\Models\Salary;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,7 +32,13 @@ class HomeController extends Controller
     }
 
     public function post_contact(Request $request) {
-        Mail::send('mail.contact',[
+        $current_time = date('Y-m-01');
+        $teacher_id = Auth::guard('teacher')->user()->id;
+       
+        DB::update('update history_salary set status = 2 where teacher_id = ? and time = ?', [$teacher_id,$current_time]);
+        
+       
+        Mail::send('admin.mail.feedback',[
             'name' => $request->name,
             'message' => $request->message,
         ], function($message) use($request){

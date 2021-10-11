@@ -131,11 +131,16 @@
 
 @section('js')
     <script>
-			var btn = document.querySelector('.btn-primary')
-            var info = document.querySelector('.infoo');
-			btn.onclick = function() {
-				info.classList.toggle('active')
+			var btns = document.querySelectorAll('.btn-primary')
+            var info = document.querySelectorAll('.infoo');
+			for(var i = 0; i < btns.length; i++){
+						show(i)
 			}
+		function show(i){
+			btns[i].onclick = function(e) {		
+				info[i].classList.toggle('active')
+		}
+	}
             
 
         $('.btndelete').click(function(event) {

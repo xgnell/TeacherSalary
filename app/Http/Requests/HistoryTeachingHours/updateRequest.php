@@ -24,6 +24,7 @@ class updateRequest extends FormRequest
     public function rules()
     {
         return [
+           
             'teacher_id' => 'required|integer',
             'total_hours' => 'required|numeric',
             'total_overtime_hours' => 'required|numeric',

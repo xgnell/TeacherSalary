@@ -17,7 +17,7 @@
                 ],
                 [
                     'label' => 'Current month',
-                    'route' => 'history_salary.show_by_month',
+                    'route' => 'history_salary.create',
                     'icon' => 'fa-circle'
                 ]
             ]

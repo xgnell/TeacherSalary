@@ -5,14 +5,8 @@
 @endsection
 
 @section('main')
-<div>
-	<a href="{{ route('history_salary.show_by_month') }}" class="btn btn-danger">Salary issue</a>
-	<a href="{{ route('history_salary.showPaid') }}" class="btn btn-success">Salary Paid</a>
-</div>
-<div class="alert2" role="alert2" style="text-align: center">
-</div>
-<div class="alert" role="alert" style="text-align: center">
-</div>
+<a href="{{ route('history_salary.index') }}" class="btn btn-danger">Back</a>
+
 	<hr>
 
     <label for="">List History Salary</label>
@@ -48,7 +42,6 @@
 							<th>Total Salary</th>
 							<th>Status</th>
 							<th>Last Updated</th>
-							<th class="text-right">Action</th>
 						</tr>
 
 						<!-- Duyệt qua các giảng viên của từng tháng -->
@@ -65,10 +58,6 @@
 								<td>{{ $salary->updated_at }}</td>
 									
 								<!-- Chức năng tương ứng -->
-								<td class="text-right">
-									<button id="pay" data-time="{{$timeline}}" data-id="{{ $salary->teacher->id }}" class="btn btn-success" data-toggle="modal"
-										data-target="#modelId" data-toggle="modal" data-target="#modelId">PAY</button>
-								</td>
 							</tr>
 						@endforeach
 					</table>
@@ -101,46 +90,6 @@
                 $('#example').DataTable({
                     "pagingType": "full_numbers"
                 });
-
-				$('body').on('click','#pay', function(){
-					var teacher_id = $(this).data('id');
-					var time = $(this).data('time');
-					$.ajax({
-						type: "POST",
-                        url: "{{ route('history_salary.paid')}}",
-                        dataType: "json",
-                        data: {
-                            time: time,
-                            teacher_id: teacher_id
-						},
-						success: function(response) {
-							if (response.error) {
-                               var error = response.error
-
-                                $(".alert").addClass("alert-danger");
-                                 $(".alert").html(response.error);
-                                 setTimeout(
-                                           function() {
-                                                $(".alert").removeClass("alert-danger");
-                                                $(".alert").html('');
-                                            }, 2000)
-                            } else if (response.success) {
-                                     $('#loaddata').load(document.URL +  ' #loaddata');
-
-                                    var success =response.success
-                                    $("#modelId").modal('hide');
-                                    $(".alert2").addClass("alert-success");
-                                    $(".alert2").html(response.success);
-                                    setTimeout(
-                                            function() {
-                                                $(".alert2").removeClass("alert-success");
-                                                $(".alert2").html('');
-                                     }, 2000)
-
-                             }
-						}
-				})
-            });
 		});
 		
 	

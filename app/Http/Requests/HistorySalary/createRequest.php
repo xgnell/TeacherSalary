@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\HistoryTeachingHours;
+namespace App\Http\Requests\HistorySalary;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,10 +24,7 @@ class createRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            'teacher_id' => 'required|integer',
-            'total_hours' => 'required|numeric',
-            'total_overtime_hours' => 'required|numeric',
+            'time' => 'required',
         ];
     }
 }

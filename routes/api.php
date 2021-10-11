@@ -74,10 +74,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']],function(){
 
     Route::get('/history_salary','Api\HistorySalaryController@create')->name('history_salary.create');
     Route::post('/history_salary/store','Api\HistorySalaryController@store')->name('history_salary.store');
+    Route::post('/history_salary/edit','Api\HistorySalaryController@edit')->name('history_salary.edit');
+    Route::post('/history_salary/update','Api\HistorySalaryController@update')->name('history_salary.update');
     Route::get('/history_filter/{slug}','Api\HistorySalaryController@filter')->name('history_salary.filter');
     Route::post('/history_add','Api\HistorySalaryController@add')->name('history_salary.add');
     Route::get('/history_index','Api\HistorySalaryController@index')->name('history_salary.index');
     Route::get('/history_salary/show_by_month', 'Api\HistorySalaryController@show_by_month')->name('history_salary.show_by_month');
+    Route::post('/history_salary/paid', 'Api\HistorySalaryController@paid')->name('history_salary.paid');
+    Route::get('/history_salary/showPaid', 'Api\HistorySalaryController@showPaid')->name('history_salary.showPaid');
     
     Route::get('/export', 'Api\TeacherController@export')->name('export');
     Route::get('/kpi_highest', 'Api\AdminController@kpi_highest')->name('admin.highest');

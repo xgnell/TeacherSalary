@@ -1,20 +1,15 @@
 @extends('layouts.admin')
-
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    
+@endsection
 @section('main')
 
-<form class="form-inline">
-    <div class="form-group">
-        <label for=""></label>
-        <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="search name"
-            aria-describedby="helpId">
-        <button class="btn-primary"><i class="fa fa-search"></i></button>
-    </div>
-</form>
 <hr>
 <label for="">Salary Caculate</label>
 <div class="alert2" role="alert2" style="text-align: center">
 </div>
-<table class="table table-hover" id="table_id">
+<table class="table table-hover" id="example" class="display">
     <thead>
         <tr>
             <th>Teacher Name</th>
@@ -63,6 +58,8 @@
 
 @endsection
 @section('js')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
 <script src="{{ url('public/slug/salary.js') }}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
@@ -71,6 +68,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
         $('body').on('click', '#pay', function(e) {
             var id = $(this).data('id');
             $.ajax({
@@ -132,7 +132,7 @@
                        
                     }else if(response.success) {
                          $("#modelId").modal('hide');
-                         $("#table_id").load(window.location + " #table_id");
+                         $("#example").load(window.location + " #example");
                     $(".alert2").addClass("alert-success");
                     $(".alert2").html(response.success);
                      setTimeout(function(){  $(".alert-success").hide(); }, 2000);
