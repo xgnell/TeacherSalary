@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     public function index(){
-       
         $major = Major::all();
         return view('user.index',compact('major'));
     }
@@ -43,7 +42,7 @@ class HomeController extends Controller
             'message' => $request->message,
         ], function($message) use($request){
             $mail = $request->email;
-            $message->to('nguyenvdat8@gmail.com',$request->name);
+            $message->to($_ENV["MAIL_USERNAME"], $request->name);
             $message->from($mail);
             $message->subject('Feedback');
         });
@@ -91,9 +90,9 @@ class HomeController extends Controller
             'password'=>'required',
         ]);
          if(Auth::guard('teacher')->attempt($request->only('email','password'),$request->has('remember'))){
-             return redirect()->route('home')->with('success','Đăng Nhập Thành công!');
+             return redirect()->route('home')->with('success', 'Login success!');
          }else{
-             return redirect()->back()->with('error','Tài khoản hoặc mật khẩu không chính xác !');
+             return redirect()->back()->with('error', 'Your email or password not correct !');
          }
          
      }

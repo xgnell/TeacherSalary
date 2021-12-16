@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ url('public') }}/assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="{{ url('public') }}/assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login</title>
+    <title>Admin Login</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -32,14 +32,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href=" ../dashboard.html ">Manage Salary</a>
+                {{-- <a class="navbar-brand" href=" ../dashboard.html ">Manage Salary</a> --}}
             </div>
             <div class="collapse navbar-collapse">
             </div>
         </div>
     </nav>
     <div class="wrapper wrapper-full-page">
-        <div class="full-page login-page" filter-color="black" data-image="{{ url('public') }}/assets/img/login.jpeg">
+        <div class="full-page login-page" filter-color="black" data-image="{{ url('public') }}/assets/img/bkacad3.png">
             <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
             <div class="content">
                 <div class="container">
@@ -49,12 +49,9 @@
                                 @csrf
                                 
                                 <div class="card card-login card-hidden">
-                                    <div class="card-header text-center" data-background-color="rose">
-                                        <h4 class="card-title">Login</h4>
+                                    <div class="card-header text-center" data-background-color="purple">
+                                        <h4 class="card-title">Welcome</h4>
                                     </div>
-                                    <p class="category text-center">
-                                        Or Be Classical
-                                    </p>
                                     @if (Session::has('error'))
                                             <div class="alert alert-danger" role="alert">
                                             {{ Session::get('error') }}
@@ -66,7 +63,7 @@
                                                 <i class="material-icons">email</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Email address</label>
+                                                <label class="control-label">Email</label>
                                                 <input type="email" name="email" class="form-control">
                                             </div>
                                             @error('email')
@@ -85,17 +82,15 @@
                                             <small class="help-block" style="color:red">{{$message}}</small>
                                           @enderror   
                                         </div>
-                                        <div class="input-group">
+                                        {{-- <div class="input-group">
                                             <div id="remember">
                                                  <input type="checkbox" name="remember" class="form">
                                                  <label class="" name="remember">Remember Me?</label>
                                             </div>
-                                           
-                                                
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="footer text-center">
-                                        <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
+                                        <button type="submit" class="btn btn-primary btn-md">Login</button>
                                     </div>
                                 </div>
                             </form>
@@ -110,7 +105,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                         made with love for a better web
+                        BKACAD Academy
                     </p>
                 </div>
             </footer>

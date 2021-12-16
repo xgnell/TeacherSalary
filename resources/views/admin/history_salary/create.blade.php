@@ -33,6 +33,7 @@
                                 // Lấy ra admin chỉnh sửa lần cuối
                                 
                             @endphp
+                            <td>{{ $item->id }}</td>
                             <td>{{ $teacher_name }}</td>
                             <td><img src="{{ url('public/upload') }}/{{ $item->image }}" alt="" style="height:100px">
                             </td>

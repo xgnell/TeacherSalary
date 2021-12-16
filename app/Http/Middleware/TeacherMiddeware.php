@@ -15,11 +15,11 @@ class TeacherMiddeware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next,$guard="teacher")
+    public function handle(Request $request, Closure $next, $guard="teacher")
     {
         if(Auth::guard($guard)->check()){
             return $next($request);
         }
-        return redirect()->back()->with('error','bạn cần phải đăng nhập');
+        return redirect()->back()->with('error', 'You need to login first');
     }
 }

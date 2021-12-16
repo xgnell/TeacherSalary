@@ -30,9 +30,9 @@ class Insurance extends Model
     }
     public function getNameMandatoryAttribute(){
         if($this->mandatory == 0){
-            return "không bắt buộc";
+            return "No";
         }else{
-            return "bắt buộc";
+            return "Yes";
         }
     }
 }

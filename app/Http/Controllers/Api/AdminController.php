@@ -82,9 +82,9 @@ class AdminController extends Controller
             'password'=>'required',
         ]);
         if(Auth::attempt($request->only('email','password'),$request->has('remember'))){
-            return redirect()->route('admin.dashboard')->with('success','Đăng Nhập Thành công!');
+            return redirect()->route('admin.dashboard')->with('success', 'Login success!');
         }else{
-            return redirect()->back()->with('error','Sai tài khoản hoặc mật khẩu!');
+            return redirect()->back()->with('error', 'Wrong email or password');
         }
     }
     public function logout(){
