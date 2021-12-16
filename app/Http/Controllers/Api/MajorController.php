@@ -42,7 +42,7 @@ class MajorController extends Controller
     {
         $data = $request->validated();
         if(Major::create($data)){
-            return redirect()->route('major.index')->with('success','Thêm thành công!');
+            return redirect()->route('major.index')->with('success', 'Create success');
         }
     }
 
@@ -79,7 +79,7 @@ class MajorController extends Controller
     public function update(updateRequest $request, Major $major)
     {
         $major->update($request->validated());
-        return redirect()->route('major.index')->with('success','Cập nhật thành công');
+        return redirect()->route('major.index')->with('success', 'Update success');
     }
 
     /**
@@ -91,10 +91,10 @@ class MajorController extends Controller
     public function destroy(Major $major)
     {
         if($major->teacher->count()>0){
-            return redirect()->back()->with('error','Ngành này đang tồn tại giảng viên!');
+            return redirect()->back()->with('error', 'Cannot delete selected major because it can affect to other teachers');
         }else{
             $major->delete();
-            return redirect()->back()->with('success','Xóa thành công!');
+            return redirect()->back()->with('success', 'Delete success!');
 
         }
     }

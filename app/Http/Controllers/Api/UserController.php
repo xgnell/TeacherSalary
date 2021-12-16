@@ -55,7 +55,7 @@ class UserController extends Controller
         $password = Hash::make($request->password);
         $request->merge(['password' => $password]);
         if(Admin::create($request->all())){
-            return redirect()->route('admin.index')->with('success','Thêm Thành công');
+            return redirect()->route('admin.index')->with('success','Create success');
         }
 
     }
@@ -100,7 +100,7 @@ class UserController extends Controller
         ]);
         
         $admin->update($request->only('name','email','phone','birthday','image','status','gender','role'));
-        return redirect()->route('admin.index')->with('success','Cập Nhật Thành công');
+        return redirect()->route('admin.index')->with('success','Update success');
 
     }
 

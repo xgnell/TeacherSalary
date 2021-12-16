@@ -36,60 +36,32 @@ crossorigin=anonymous></script>
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('admin.dashboard') }}" class="nav-link">Home</a>
+        <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
       </li>
 
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+      <li class="navbar-nav navbar-right">
+        <div class="dropdown">
+          <button class="btn bg-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello {{ Auth::user()->name }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item"
+                    href="{{ route('logout') }}"
+                    onclick="return confirm('Are you sure you want to logout')">Logout</a></li>
+          </ul>
         </div>
       </li>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown">Hi {{ Auth::user()->name }}</a>
-          <ul class="dropdown-menu">
-            {{-- <li><a href="">Thông Tin</a></li> --}}
-            <li><a href="{{ route('logout') }}" Onclick="return confirm('Are you sure you want to logout')">Thoát tài khoản</a></li>
-          </ul>
-        </li>
-      </ul>
       
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-        </a>
-        
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -107,42 +79,42 @@ crossorigin=anonymous></script>
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ url('public/upload') }}/{{Auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ url('public/upload') }}/{{Auth::user()->image}}" class="img-circle elevation-2" alt="Admin avatar">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <nav>
+        <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-compact" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
               @foreach ($menu as $item)
-                  <li class="nav-item">
-            <a href="{{ route($item['route']) }}" class="nav-link">
-              <i class="nav-icon fas {{ $item['icon']}}"></i>
-              <p>
-                {{ $item['label'] }}
-            @if (isset($item['items']))
-                <i class="right fas fa-angle-left"></i>
-            @endif
-              </p>
-            </a>
-            @if (isset($item['items']))
-                <ul class="nav nav-treeview">
-                  @foreach ($item['items'] as $m)
-                      <li class="nav-item">
-                <a href="{{ route($m['route']) }}" class="nav-link">
-                  <i class="far {{$m['icon']}} nav-icon"></i>
-                  <p>{{ $m['label'] }}</p>
-                </a>
-              </li>
-                  @endforeach
-            </ul>
-          </li>
-          {{-- end category --}}
-            @endif         
+                <li class="nav-item">
+                  <a href="{{ route($item['route']) }}" class="nav-link">
+                    <i class="nav-icon fas {{ $item['icon']}}"></i>
+                    <p>
+                      {{ $item['label'] }}
+                      @if (isset($item['items']))
+                          <i class="right fas fa-angle-left"></i>
+                      @endif
+                    </p>
+                  </a>
+                  @if (isset($item['items']))
+                    <ul class="nav nav-treeview">
+                      @foreach ($item['items'] as $m)
+                        <li class="nav-item">
+                        <a href="{{ route($m['route']) }}" class="nav-link">
+                          <i class="far {{$m['icon']}} nav-icon"></i>
+                          <p>{{ $m['label'] }}</p>
+                        </a>
+                        </li>
+                      @endforeach
+                    </ul>
+                  @endif
+                </li>
               @endforeach
+
               {{-- account --}}
               @if (Auth::user()->role ==1)
               <li class="nav-item">
@@ -153,11 +125,11 @@ crossorigin=anonymous></script>
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                    <ul class="nav nav-treeview">
-                          <li class="nav-item">
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
                     <a href="{{ route('admin.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>List Account</p>
+                      <p>All Accounts</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -166,17 +138,13 @@ crossorigin=anonymous></script>
                       <p>Add Account</p>
                     </a>
                   </li>
-                      
                 </ul>
               </li>
               @endif
-            
-      {{-- end category --}}
-        
+              {{-- end category --}}
             </li>
-            </ul>
+          </ul>
       </nav>
-     
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -189,7 +157,7 @@ crossorigin=anonymous></script>
 
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 mt-3">
             <!-- Default box -->
             <div class="card">
              
@@ -199,12 +167,15 @@ crossorigin=anonymous></script>
                       {{ Session::get('error') }}
                   </div>
                 @endif
-                  @if (Session::has('success'))
-                      <div class="alert alert-success" role="alert">
-                        {{ Session::get('success') }}
-                    </div>
-                  @endif
-                @yield('main')
+                @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                      {{ Session::get('success') }}
+                  </div>
+                @endif
+                
+                <div>
+                  @yield('main')
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -217,11 +188,11 @@ crossorigin=anonymous></script>
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
+  <footer class="main-footer text-sm">
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.1.0
+      BKACAD Academy
     </div>
-    <strong>Copyright &copy; 2014-2021 <a href="">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Salary Manager
   </footer>
 
   <!-- Control Sidebar -->

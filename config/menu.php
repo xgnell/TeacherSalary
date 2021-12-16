@@ -150,7 +150,7 @@
                     'icon' => 'fa-circle',
                 ],
                 [
-                    'label' => 'Add peroid',
+                    'label' => 'All periods',
                     'route' => 'insurance_period.index',
                     'icon' => 'fa-circle',
                 ]

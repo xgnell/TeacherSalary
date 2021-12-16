@@ -47,7 +47,7 @@ class SalaryLevelController extends Controller
         $data = $request->all();
         
         if(SalaryLevel::create($data)){
-            return redirect()->route('salary_level.index')->with('success','Thêm mới thành công!');
+            return redirect()->route('salary_level.index')->with('success', 'Create success!');
         }
     }
 
@@ -83,7 +83,7 @@ class SalaryLevelController extends Controller
     public function update(updateRequest $request, SalaryLevel $salaryLevel)
     {
         $salaryLevel->update($request->validated('level','basic_salary'));
-        return redirect()->route('salary_level.index')->with('success','Cập nhật thành công!');
+        return redirect()->route('salary_level.index')->with('success','Update success!');
     }
 
     /**
@@ -95,6 +95,6 @@ class SalaryLevelController extends Controller
     public function destroy(SalaryLevel $salaryLevel)
     {
         $salaryLevel->delete();
-        return redirect()->route('salary_level.index')->with('success','xóa thành công!');
+        return redirect()->route('salary_level.index')->with('success', 'Delete success!');
     }
 }

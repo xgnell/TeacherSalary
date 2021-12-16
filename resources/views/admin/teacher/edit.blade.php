@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
-<h2>EDIT TEEACHER</h2>
+<h2>Edit Teacher</h2>
 <form method="POST" action="{{ route('teacher.update',$teacher->id) }}">
     @method('PUT')
     @csrf
@@ -26,10 +26,18 @@
             @enderror
           </div>
           <div class="col-md-12">
+            <label for="">Email: </label>
+            <input type="text"
+              class="form-control" value="{{ $teacher->email }}" name="email" id="email" aria-describedby="helpId" placeholder="email">
+            @error('email')
+            <small class="help-block" style="color:red">{{$message}}</small>
+            @enderror
+          </div>
+          <div class="col-md-12">
             <label for="">Phone: </label>
             <input type="text"
               class="form-control" value="{{ $teacher->phone }}" name="phone" id="phone" aria-describedby="helpId" placeholder="phone">
-            @error('last_name')
+            @error('phone')
             <small class="help-block" style="color:red">{{$message}}</small>
             @enderror
           </div>

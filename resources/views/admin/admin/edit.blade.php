@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
-    <h2>ADD ACCOUNT ADMIN</h2>
+    <h2>EDIT ACCOUNT ADMIN</h2>
     <form method="POST" action="{{ route('admin.update',$admin->id) }}">
         @csrf
         @method('PUT')
@@ -98,12 +98,12 @@
             @if ($admin->role == 0)
                 selected = "selected"
             @endif
-        >admin</option>
+        >Admin</option>
         <option value="1"
         @if ($admin->role == 1)
         selected = "selected"
         @endif
-        >super Admin</option>
+        >Super Admin</option>
     </select>
     @error('role')
     <small class="help-block" style="color:red">{{$message}}</small>

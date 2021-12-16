@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
-<h2>ADD TEEACHER</h2>
+<h2>Add Teacher</h2>
 <form method="POST" action="{{ route('teacher.store') }}">
     @csrf
     <div class="row">

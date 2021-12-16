@@ -35,7 +35,7 @@ class TeacherController extends Controller
         }else{
             $major = Major::all();
             $search = $request->get('search');
-            $teacher = Teacher::orderBy('created_at','ASC')->search()->paginate(5);
+            $teacher = Teacher::orderBy('created_at','ASC')->search()->paginate(4);
             return view('admin.teacher.index',compact('search', 'teacher','major'));
         }
         
@@ -75,11 +75,11 @@ class TeacherController extends Controller
         ], function($message) use($request){
             $mail = $request->email;
             $message->to($mail,$request->name);
-            $message->from('nguyenvdat8@gmail.com');
+            $message->from($_ENV["MAIL_USERNAME"]);
             $message->subject('Confirm');
         });
         if(Teacher::create($data)){
-            return redirect()->route('teacher.index')->with('success', 'Thêm thành công!');
+            return redirect()->route('teacher.index')->with('success', 'Create success!');
         }
     }
 
@@ -116,8 +116,8 @@ class TeacherController extends Controller
      */
     public function update(updateRequest $request, Teacher $teacher)
     {
-        $teacher->update($request->only('first_name','last_name','address','phone','birthday','gender','major_id','salary_id','status','image'));
-        return redirect()->route('teacher.index')->with('success','Cập nhật thành công!');
+        $teacher->update($request->only('name','email', 'address','phone','birthday','gender','major_id','salary_id','status','image'));
+        return redirect()->route('teacher.index')->with('success', 'Update success');
     }
 
     /**

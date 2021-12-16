@@ -6,20 +6,21 @@
 @section('main')
 
 <hr>
-<label for="">List Major</label>
-<table class="table table-hover" id="example" class="display">
+<h2>All Majors</h2>
+
+<table class="table table-hover pt-2" id="example" class="display">
     <thead>
         <tr>
-        <th>ID</th>
+        {{-- <th>ID</th> --}}
         <th>Name</th>
-        <th>Created At</th>
+        <th>Created at</th>
         <th class="text-right">Action</th>
     </tr>
     </thead>
     <tbody>
         @foreach ($major as $each)
         <tr>
-            <td>{{$each->id}}</td>
+            {{-- <td>{{$each->id}}</td> --}}
             <td>{{$each->name}}</td>
             <td>{{$each->created_at}}</td>
             <td class="text-right">
@@ -49,25 +50,21 @@
 @endsection
 
 @section('js')
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-                $('#example').DataTable({
-                    "pagingType": "full_numbers"
-                });
+{{-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers"
             });
-        $('.btndelete').click(function(event){
-            event.preventDefault();
-            var _href = $(this).attr('href');
-            $('form#formdelete').attr('action',_href);
-            if(confirm('Are you sure you want to delete')){
-                $('form#formdelete').submit();
-            }
         });
-    </script>
-
-
-
+    $('.btndelete').click(function(event){
+        event.preventDefault();
+        var _href = $(this).attr('href');
+        $('form#formdelete').attr('action',_href);
+        if(confirm('Are you sure you want to delete')){
+            $('form#formdelete').submit();
+        }
+    });
+</script> --}}
 @endsection
 
