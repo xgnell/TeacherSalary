@@ -76,11 +76,11 @@
         <div id="container" style="width:100%; height:400px;"></div>
     </section>
     <section>
-        <div>giảng viên chưa được thanh toán</div>
+        <div>Unpaid Teachers</div>
         <table class="table table-hover" id="example" class="display">
             <thead>
                 <tr>
-                    <th>time</th>
+                    <th>Time</th>
                     <th></th>
                 </tr>
             </thead>
@@ -92,19 +92,13 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <th>name</th>
-                            <th>phone</th>
-                            <th>email</th>
-                            <th>Major</th>
-                            <th>action</th>
+                            <th>Name</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                             @foreach ($unpay as $each)
                                 <tr>
                                     <td>{{ $each->name }}</td>
-                                    <td>{{ $each->phone }}</td>
-                                    <td>{{ $each->email }}</td>
-                                    <td>{{ $each->major_id }}</td>
                                     <th>
                                         <a href="{{ route('history_teaching_hours.show_by_month') }}">Add salary</a>
                                     </th>
